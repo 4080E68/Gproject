@@ -15,7 +15,7 @@ import time
 from urllib.request import urlretrieve
 line_bot_api = LineBotApi(settings.LINE_CHANNEL_ACCESS_TOKEN)
 
-#123
+
 
 def healthy(event,mtext):
     text = mtext[3:]
