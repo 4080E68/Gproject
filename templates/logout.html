@@ -1,0 +1,45 @@
+<!doctype html>
+{% load static %}
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>電腦報價幫手</title>
+    <link rel="stylesheet" href="{% static 'userindex.css' %}">
+</head>
+
+<body>
+    <h1>1651616516</h1>
+    <div class="center">
+        <div class="h1">
+            <a href="/" target="_self" style="text-decoration:none" title="電腦報價幫手">電腦報價幫手</a>
+            <form class="log">
+                <input type="button" value="登出" onclick="location.href='/'">
+            </form>
+            <form class="res">
+                <input type="button" value="購物清單" onclick="location.href='/'">
+            </form>
+        </div>
+        <form name="input" action="XXX" method="get">
+            <div class="search">
+                <input type="text" name="name" size="100%">
+                <input type="submit" value="搜尋">
+            </div>
+        </form>
+
+    </div>
+    <hr />
+
+    <div class="list">
+        <ul>
+            <li><a href="/cpu">CPU</a></li>
+            <li><a href="/MB">主機板</a></li>
+            <li><a href="/ssd">SSD</a></li>
+            <li><a href="/hdd">HDD</a></li>
+            <li><a href="/display">顯示卡</a></li>
+            <li><a href="/Memory">記憶體</a></li>
+            <li><a href="/Power">電源供應器</a></li>
+            <li><a href="/chassis">機殼</a></li>
+        </ul>
+    </div>
+    <hr />

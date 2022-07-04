@@ -1,0 +1,40 @@
+<!doctype html>
+{% load static %}
+<html>
+<head>
+<meta charset="utf-8">
+<title>登入系統</title>
+<link rel="stylesheet" href="{% static 'login.css' %}">
+</head>
+
+<body>
+	{{aa}}
+	<div class="login_page">
+		<div class="container1">
+			<div class="login">
+				<center><h3>登入</h3></center>
+				<form action="" method="post">
+					{% csrf_token %}
+					<p>帳&emsp;號:<input class="username" type="text" id="username" name="username" placeholder="帳號" required/></p>
+					<div class="tab"></div>
+					<p>密&emsp;碼:<input class="password" type="password" id="password" name="password" placeholder="密碼" required/></p>
+					<div class="tab"></div>
+					<center><input class="su" type="submit" value="登入"></center>
+					{% if messages %}
+					<script>
+						alert('{{ messages }}');
+						alert('{{ exists }}');
+					</script>
+					{% endif %}
+					{% for user in users_data %}
+					<p>{{user.id}}   :   {{user.name}}</p>
+					<br\>
+					{% endfor %}
+				</form>
+				<h5 onClick="location.href='/signup'">註冊帳號</h5>
+				<h6 onClick="location.href='/'">首頁</h6>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

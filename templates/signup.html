@@ -1,0 +1,43 @@
+<!doctype html>
+{% load static %}
+<html>
+<head>
+<meta charset="utf-8">
+<title>註冊系統</title>
+<link rel="stylesheet" href="{% static 'signup.css' %}">
+</head>
+
+<body>
+	<div class="signup_page">
+		<div class="container2">
+			<div class="signup">
+				<center><h3>註冊</h3></center>
+				<form action="" method="post">
+					{% csrf_token %}
+					<p>帳&emsp;&emsp;號:<input class="username2" type="text" id="ID" name="ID" placeholder="帳號" required></p>
+                    <div class="tab"></div>
+					<p>電子信箱:<input class="mail" type="email" id="mail" name="mail" placeholder="電子信箱" required></p>
+					<div class="tab"></div>
+                    <p>密&emsp;&emsp;碼:<input class="password2" type="password" id="password" name="password" placeholder="密碼" required></p>
+                    <div class="tab"></div>
+                    <p>確認密碼:<input class="comfirm_password" type="password" id="password1" name="password1" placeholder="確認密碼" required></p>
+                    <div class="tab"></div>
+					<p>姓&emsp;&emsp;名:<input class="name" type="text" id="name" name="name" placeholder="使用者全名" required></p>
+					<div class="tab"></div>
+					<p>姓&emsp;&emsp;別:&emsp;<label><input type="radio" id="rdo" name="rdo" value=True>男生</label>
+					&emsp;<label><input type="radio" id="rdo" name="rdo" value=False>女生</label></p>
+					<div class="tab"></div>
+                    <center><input class="su" type="submit" value="註冊" ></center>
+					{% if messages %}
+					<script>
+						alert('{{ messages }}');
+					</script>
+					{% endif %}
+				</form>
+				<h5 onClick="location.href='/login'">登入帳號</h5>
+				<h6 onClick="location.href='/'">首頁</h6>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

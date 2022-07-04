@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+{% csrf_token %}
+{% load static %}
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>購物清單</title>
+</head>
+
+<body>
+    <h1 style="text-align: center;">購物清單</h1>
+    <form method="post"> {% csrf_token %}
+        <input type="submit" name="button" id="dataID" onclick="del()" value="清空購物清單" />
+        <input type="button" value="首頁" onclick="location.href='/aftlogin'">
+    </form>
+    <table border="1" cellpadding="0" cellspzcing="0" width="100%" style="">
+        <th>刪除</th>
+        <th>品牌</th>
+        <th>商品圖片</th>
+        <th>商品名稱</th>
+        <th>價格</th>
+        <th>詳細資訊</th>
+        <th>購買連結</th>
+        {% for cart in cart_all %}
+        <tr align="center">
+            <form method="post" action="/cart/"> {% csrf_token %}
+                <td><button value="{{ cart.name }}" onclick="cart(this.value ,'{{ forloop.counter }}')"
+                        id="{{ forloop.counter }}" name="cart_del">刪除</button></td>
+            </form>
+            <td>{{cart.vendor}}</td>
+            <td><img src="{{cart.pc_images}}" width="150" height="150"></td>
+            <td>{{cart.name}}</td>
+            <td>{{cart.price}}</td>
+            <td>{{cart.commodity}}</td>
+            <td><input type="button" value="購買連結" onclick="window.open('{{aaa.url_list}}')"></td>
+
+
+        </tr>
+        {% endfor %}
+
+
+    </table>
+
+
+
+    {% csrf_token %}
+    <script>
+        function del() {
+            var msg = "您真的確定要清空購物清單嗎？\n請確認！";
+            if (confirm(msg) == true) {
+                document.getElementById('dataID').value = 'Yes';
+                alert("已清除!");
+            } else {
+                document.getElementById('dataID').value = 'NO';
+                alert("取消!");
+            }
+        } 
+    </script>
+
+    {% csrf_token %}
+    <script>
+        function cart(value1, id) {
+            var msg = "確定將｛" + value1 + "｝移出購物清單?";
+            if (confirm(msg) == true) {
+                alert("成功");
+                history.go(0);
+            }
+            else {
+                document.getElementById(id).value = 'NO'
+                alert("取消");
+                history.go(0);
+            }
+        } 
+    </script>
+    {% if total.price__sum == None %}
+    <h1 style="color: red; align-items: flex-end; text-align: end;">總計＄0</h1>
+    {% else %}
+    <h1 style="color: red; align-items: flex-end; text-align: end;">總計＄{{ total.price__sum }}</h1>
+    {% endif %}
+</body>
+
+</html>

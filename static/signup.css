@@ -1,0 +1,112 @@
+body{
+    background-color:#cccccc;
+}
+h3{
+	width: 200px;
+    height: 20px;
+    margin: 10px;
+    color: #EB538C;
+}
+.name{
+    width: 200px;
+    height: 20px;
+    margin: 10px;
+    color: black;
+}
+.boyorgirl{
+	width: 200px;
+    height: 20px;
+    margin: 10px;
+    color: black;
+}
+.number{
+	width: 200px;
+    height: 20px;
+    margin: 10px;
+    color: black;
+}
+.mail{
+	width: 200px;
+    height: 20px;
+    margin: 10px;
+    color: black;
+}
+.username2{
+	width: 200px;
+    height: 20px;
+    margin: 10px;
+    color: black;
+}
+.password2{
+	width: 200px;
+    height: 20px;
+    margin: 10px;
+    color: black;
+}
+.comfirm_password{
+	width: 200px;
+    height: 20px;
+    margin: 10px;
+    color: black;
+}
+.container2{
+    display: flex;
+	padding:10px 15px;
+    width: 298px;
+    height: 525px;
+	background-color: white;
+    border-radius: 5px;
+    border-top: 10px solid #EB538C;
+	box-shadow: 0 0px 70px rgba(0, 0, 0, 0.1);
+	position: relative;
+    margin: auto;
+    top: 100px;
+}
+.submit{
+	color: white;
+    background: #EB538C;
+    width: 200px;
+    height: 30px;
+    margin: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 0px;
+}
+h5{
+	font-size: 15px;
+	margin: 20px;
+    color: #a3a2a3;
+	float:left;
+}
+h5:hover {
+    color: black;
+}
+h6{
+	font-size: 15px;
+	margin: 20px;
+    color: #a3a2a3;
+	float:left;
+}
+h6:hover{
+	color: black;
+}
+.su{
+	color: white;
+    background: #EB538C;
+    width: 200px;
+    height: 30px;
+    margin: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 0px;
+}
+.sa{
+    color: white;
+    background: #EB538C;
+    width: 200px;
+    height: 30px;
+    margin: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 0px; 
+}

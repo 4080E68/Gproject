@@ -1,0 +1,161 @@
+body {
+  margin: 0;
+  /* background-image: url("../images/背景2.png"); */
+  background-color: #c7c7c7;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  width: 100%;
+  font-family: Microsoft JhengHei;
+  font-size: 25px;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 10px 10px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: rebeccapurple;
+  /* background-color: #111; */
+}
+
+li a.active {
+  background-color: #04AA6D;
+  color: black;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+li a.actives {
+  background-color: royalblue;
+  color: white;
+}
+
+/* .active{
+	background-color: #04AA6D;
+} */
+.h1 {
+  padding: 20px;
+  margin-top: 40px;
+  font-size: 45px;
+  font-weight: bolder;
+  position: fixed;
+  top: 10px;
+  width: 100%;
+  text-align: center;
+  z-index: 1;
+  /* background-image: url("../images/背景2.png"); */
+  background-color: #cccccc;
+}
+
+.h1 a {
+  color: #c12f65;
+  text-decoration: none;
+}
+
+.wat {
+  width: 100%;
+  padding-top: 3px;
+  padding-bottom: 8px;
+  position: fixed;
+  margin-top: 115px;
+  background-color: #cccccc;
+  z-index: 1;
+}
+
+.gt {
+  padding-left: 15px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  position: fixed;
+  width: 100%;
+  margin-top: 180px;
+  z-index: 1;
+  background-color: #cccccc;
+}
+
+.marqee-root {
+  margin-top: 150px;
+  position: fixed;
+  z-index: 1;
+}
+
+.marqee-root marquee {
+  width: 100%;
+  height: 30px;
+  float: left;
+  margin-right: 6px;
+  font-size: 20px;
+  color: yellow;
+  background-color: mediumpurple;
+}
+
+.kt {
+  margin-top: 220px;
+}
+
+table {
+  padding: 10px;
+}
+
+th {
+  font-size: 1cm;
+  position: sticky;
+  top: 230px;
+  background-color: #333;
+  color: white;
+  box-shadow: 0 8px 6px -6px rgb(42, 41, 41);
+  font-weight: normal;
+  
+}
+
+.cm {
+  margin-top: 218px;
+  padding: 10px;
+  float: left;
+}
+
+.cm a {
+  color: red;
+}
+
+.cmr {
+  margin-top: 215px;
+  padding: 10px;
+  float: left;
+}
+
+.cmr a {
+  color: red;
+}
+
+.cmrr {
+  margin-top: 215px;
+  padding: 10px;
+  float: left;
+}
+
+.cmrr a {
+  color: red;
+}
+
+/* .tcc{
+  position: sticky;
+  top: 30px;
+} */

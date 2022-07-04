@@ -1,0 +1,23 @@
+python manage.py makemigrations
+
+python manage.py migrate
+
+更新 INSERT INTO myapp_cpu SELECT * FROM hw_cpu
+
+SET SQL_SAFE_UPDATES=0;
+
+UPDATE `myapp_cpu` SET `commodity` = REPLACE(`commodity`,'◆',':') ;
+
+update table set 欄位=0 where 欄位 is null
+
+
+UPDATE `cpu` SET `腳位值` = REPLACE(`腳位值`,'123','廠商未提供') ;
+UPDATE `intel` SET `執行緒值` = REPLACE(`intel`,'0','廠商未提供') ;
+
+DELETE FROM table_name WHERE column_name operator value;
+
+5640 *
+5400
+UPDATE hdd_希捷seagate SET 容量='容量18TB' WHERE commodity like "%18TB%";
+
+INSERT INTO graduation_topic.myapp_all SELECT * FROM myapp_all;
