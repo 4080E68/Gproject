@@ -56,6 +56,7 @@ class cartdb(models.Model):  # 購物清單資料表
     commodity = models.CharField(max_length=255, default="")
     url_list = models.CharField(max_length=255, default="")  # 商品連結
     pc_images = models.CharField(max_length=255, default="")  # 圖片網址
+    user = models.CharField(max_length=255, default="")
 
 
 class chassis(models.Model):  # 設計LINE Bot所需要使用的資料表(Table)欄位
@@ -149,7 +150,4 @@ class hit(models.Model):
     power_hit = models.IntegerField(default=0)
     chassis_hit = models.IntegerField(default=0)
 
-class health(models.Model):
-    number = models.CharField(max_length=255, null=False, default="")  
-    price = models.IntegerField(default=0)
-    text = models.CharField(max_length=255, null=False, default="")  
+

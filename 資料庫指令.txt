@@ -11,6 +11,11 @@ UPDATE `myapp_cpu` SET `commodity` = REPLACE(`commodity`,'◆',':') ;
 update table set 欄位=0 where 欄位 is null
 
 
+SELECT * FROM graduation_topic.myapp_ssd INTO OUTFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/aaac.csv'
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n';
+
 UPDATE `cpu` SET `腳位值` = REPLACE(`腳位值`,'123','廠商未提供') ;
 UPDATE `intel` SET `執行緒值` = REPLACE(`intel`,'0','廠商未提供') ;
 

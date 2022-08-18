@@ -20,6 +20,7 @@ from linebot.exceptions import InvalidSignatureError, LineBotApiError
 from linebot.models import *
 from Graduation_Topic import func
 from django.conf import settings
+from django.db import connection, transaction
 
 
 line_bot_api = LineBotApi(settings.LINE_CHANNEL_ACCESS_TOKEN)
@@ -28,8 +29,6 @@ parser = WebhookParser(settings.LINE_CHANNEL_SECRET)
 
 @csrf_exempt
 def callback(request):
-    
-    
     if request.method == 'POST':
         # 先設定一個要回傳的message空集合
 
@@ -47,18 +46,7 @@ def callback(request):
 
         for event in events:
             if isinstance(event, MessageEvent):  # 如果有訊息事件
-
                 msg = event.message.text
-            if msg == '@健保查詢':
-                line_bot_api.reply_message(
-                        event.reply_token, TextSendMessage(text='https://liff.line.me/1656626380-Z7knz9PR'))
-            if msg[:3] == '&&&' and len(msg) > 3:  
-                # func.manageForm(event, msg)
-                
-                    func.healthy(event, msg)
-                
-                    # line_bot_api.reply_message(
-                    #     event.reply_token, TextSendMessage(text='發生錯誤！'))
             if msg[:3] == '###' and len(msg) > 3:  # 購物清單功能
                 # func.manageForm(event, msg)
                 try:
@@ -73,9 +61,7 @@ def callback(request):
                     line_bot_api.reply_message(
                         event.reply_token, TextSendMessage(text='發生錯誤！'))
 # ==========================推薦功能============================================
-            
-                
-                
+
             if event.message.text == "@推薦商品":  # 推薦商品功能
                 likezero = cpu.objects.get(id=9)
                 likecpu = cpu.objects.get(id=2)
@@ -88,10 +74,10 @@ def callback(request):
                 likechassis = chassis.objects.get(id=8)
 
                 print(events[0].source.user_id)
-                #print(users.objects.filter(linebotId=events[0].source.user_id).exists())
-                #users.objects.filter(linebotId=events[0].source.user_id).exists()
+                # print(users.objects.filter(linebotId=events[0].source.user_id).exists())
+                # users.objects.filter(linebotId=events[0].source.user_id).exists()
                 lineId = users.objects.filter(
-                    linebotId="events[0].source.user_id").exists()  # 取得lineId
+                    linebotId=events[0].source.user_id).exists()  # 取得lineId
 
                 if(lineId):
                     user = users.objects.get(
@@ -130,7 +116,6 @@ def callback(request):
                             line_bot_api.reply_message(
                                 event.reply_token, TextSendMessage(text='發生錯誤！'))
                 else:
-                    print(123)
                     reply_arr = []
                     # line_bot_api.reply_message(
                     #     event.reply_token, TextSendMessage(text='http://127.0.0.1:8000/bind/%s/' % events[0].source.user_id))
@@ -201,17 +186,16 @@ def callback(request):
                                 }
                             }
                         }
-                    ))                 
+                    ))
                     line_bot_api.reply_message(  # 回覆訊息
-                    event.reply_token, reply_arr
+                        event.reply_token, reply_arr
                     )
-                    
-            
 
         return HttpResponse()
 
     else:
         return HttpResponseBadRequest()
+
 
 def index(request):
     request.session.clear()
@@ -222,7 +206,7 @@ def index(request):
 
 
 def CPU(request):
-    
+
     cpu_all = cpu.objects.all()
     All_data = All.objects.all()
     cpu_Filter = cpuFilter(queryset=cpu_all)
@@ -328,13 +312,10 @@ def Signup(request):
 
 
 def Login(request):
-    
+
     if request.method == 'POST':
         ID = request.POST['username']
         userpassword = request.POST['password']
-        
-        
-        
 
         user = users.objects.filter(
             account=ID, password=userpassword).exists()  # 比對帳號密碼
@@ -351,15 +332,17 @@ def Login(request):
             return redirect('/aftlogin')
 
     return render(request, 'login.html', locals())
-def bind(request,key=None):
-    
+
+
+def bind(request, key=None):
+
     if request.method == 'POST':
         account = request.POST['account']
         password = request.POST['password']
 
         print(account)
         print(password)
-        
+
         user = users.objects.filter(
             account=account, password=password).exists()  # 比對帳號密碼
         if user == False:
@@ -368,7 +351,7 @@ def bind(request,key=None):
             messages = "綁定成功!!"
             request.session['id'] = key
             print(request.session['id'])
-        #     
+        #
         # else:
         #     request.session["verify"] = True
         #     name = users.objects.filter(account=ID)  # 比對帳號
@@ -378,8 +361,6 @@ def bind(request,key=None):
         #     return redirect('/aftlogin')
 
     return render(request, 'bind.html', locals())
-
-
 
 
 # 登入後====================================================================
@@ -500,7 +481,8 @@ def otcpu(request):
     if cart == 'NO' or None:
         pass
     elif All.objects.filter(name_all=cart).exists():
-        cartname = All.objects.get(name_all=cart)
+        username = request.session["yourname"]
+        cartname = All.objects.filter(name_all=cart).first()
         CARTname = cartname.name_all
         CARTvendor = cartname.vendor
         CARTprice = cartname.price
@@ -509,7 +491,7 @@ def otcpu(request):
         CARTpc_images = cartname.pc_images
         save_cartdb = cartdb.objects.create(
             vendor=CARTvendor, name=CARTname, price=CARTprice,
-            commodity=CARTcommodity, url_list=CARTurl_list, pc_images=CARTpc_images,)  # 新增資料
+            commodity=CARTcommodity, url_list=CARTurl_list, pc_images=CARTpc_images, user=username)  # 新增資料
 
         save_cartdb.save()  # 儲存資料
 
@@ -823,30 +805,42 @@ def otMemory(request):
 
 
 def CART(request):  # 購物清單
-
-    cart_all = cartdb.objects.all()
-    total = cartdb.objects.aggregate(Sum('price'))
+    username = request.session["yourname"]
+    cursor = connection.cursor()
+    cart_all = cartdb.objects.raw(
+        "select * from myapp_cartdb where user = %s", [username])
+    #total = cartdb.objects.aggregate(Sum('price'))
+    total = 0
+    for i in cart_all:
+        total += i.price
+    finalTotal = total
+    print(finalTotal)
 
     if request.method == "POST":
         cart_result = request.POST.get('cart_del')
         defbutton = request.POST.get('button')
 
-        if cart_result == 'NO' or "None":
-            pass
-        else:
-            delcart = cartdb.objects.filter(name=cart_result).first()
-            delcart.delete()
-
-        print(defbutton)
-        print(cart_result)
+        # print("全部刪除按鈕"+str(defbutton))
+        # print("刪除按鈕"+str(cart_result))
         if defbutton == 'Yes':
-            delcart_all = cartdb.objects.all()
-            delcart_all.delete()
+            cursor.execute(
+                "DELETE from myapp_cartdb where user=%s", [username])
+            finalTotal = 0
+            cart_all = cartdb.objects.raw(
+                "select * from myapp_cartdb where user = %s", [username])
         else:
             pass
+        if cart_result != 'NO' and cartdb.objects.filter(name=cart_result).exists():
+            cursor.execute(
+                "DELETE from myapp_cartdb where name=%s limit 1", [cart_result])
+            cart_all = cartdb.objects.raw(
+                "select * from myapp_cartdb where user = %s", [username])
+            total = 0
+            for i in cart_all:
+                total += i.price
+                print(total)
+            finalTotal = total
+            print('刪除後'+str(finalTotal))
 
     return render(request, "cart.html", locals())
 # Create your views here.
-
-
-

@@ -12,6 +12,9 @@ class cpuFilter(django_filters.FilterSet):
         lookup_expr='icontains',
         widget=forms.TextInput(attrs={'class': 'form-control'}))
     price = django_filters.CharFilter(lookup_expr='lte')#lte 小於  get 大於
+    chip = django_filters.CharFilter(
+        lookup_expr='icontains',
+        widget=forms.TextInput(attrs={'class': 'form-control'}))
 
 class hddFilter(django_filters.FilterSet):
     vendor = django_filters.CharFilter(

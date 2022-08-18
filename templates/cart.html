@@ -73,10 +73,10 @@
             }
         } 
     </script>
-    {% if total.price__sum == None %}
+    {% if finalTotal == 0  %}
     <h1 style="color: red; align-items: flex-end; text-align: end;">總計＄0</h1>
     {% else %}
-    <h1 style="color: red; align-items: flex-end; text-align: end;">總計＄{{ total.price__sum }}</h1>
+    <h1 style="color: red; align-items: flex-end; text-align: end;">總計＄{{ finalTotal }}</h1>
     {% endif %}
 </body>
 

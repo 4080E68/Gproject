@@ -16,27 +16,7 @@ from urllib.request import urlretrieve
 line_bot_api = LineBotApi(settings.LINE_CHANNEL_ACCESS_TOKEN)
 
 
-
-def healthy(event,mtext):
-    text = mtext[3:]
-    text = text.upper()
-    seconds = time.time()
-    local_time = time.ctime(seconds)
-    print("現在時間:"+local_time +'\n' +"輸入文字:"+ text)
-    if health.objects.filter(number=text).exists():
-        Hdata = health.objects.filter(number__iexact=text)[0]
-        message = "健保價格為:"+ str(Hdata.price)
-    elif health.objects.filter(text=text).exists():
-        Hdata = health.objects.filter(text__iexact=text)[0]
-        message = "健保價格為:" + str(Hdata.price)
-    else:
-        message = "查無資料!!"
-    
-    line_bot_api.reply_message(
-        event.reply_token, TextSendMessage(text=str(message)))
-
 def select(event, mtext):  # 查詢
-
     flist = mtext[3:].split('$')
 
     price = flist[1].split('~')
@@ -582,7 +562,6 @@ def select(event, mtext):  # 查詢
 
 
 def manageForm(event, mtext):  # 購物清單功能
-
     flist = mtext[3:].split('#')
 
     if flist[0] == "請選擇CPU":
