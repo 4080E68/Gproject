@@ -1,3 +1,4 @@
+from ast import Delete
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib import auth, messages
@@ -385,7 +386,7 @@ def aftlogin(request):
         print(request.session["yourname"])
 
         result = prs.objects.raw(
-            "SELECT id,account,type,count(*) as 次數 FROM graduation_topic.myapp_prs where account = %s group by type order by count(*) desc limit 1;", [account])
+            "SELECT id,account,type,count(*) as 次數 FROM myapp_prs where account = %s group by type order by count(*) desc limit 1;", [account])
         #  透過以上SQL獲得使用者最高點擊次數的項目
         if len(result) > 1:
             print("搜尋筆數為:"+str(len(result)))  # 查詢筆數
@@ -508,6 +509,7 @@ def otcpu(request):
 
 
 def otchassis(request):
+    username = request.session["yourname"]
     chassis_all = chassis.objects.all()
     All_data = All.objects.all()
     cart = request.POST.get('cart_name')
@@ -534,7 +536,7 @@ def otchassis(request):
         CARTpc_images = cartname.pc_images
         save_cartdb = cartdb.objects.create(
             vendor=CARTvendor, name=CARTname, price=CARTprice,
-            commodity=CARTcommodity, url_list=CARTurl_list, pc_images=CARTpc_images,)  # 新增資料
+            commodity=CARTcommodity, url_list=CARTurl_list, pc_images=CARTpc_images, user=username)  # 新增資料
 
         save_cartdb.save()  # 儲存資料
     chassis_Filter = displayFilter(queryset=chassis_all)
@@ -550,6 +552,7 @@ def otchassis(request):
 
 
 def otdisplay(request):
+    username = request.session["yourname"]
     display_all = display.objects.all()
     All_data = All.objects.all()
     cart = request.POST.get('cart_name')
@@ -577,7 +580,7 @@ def otdisplay(request):
         CARTpc_images = cartname.pc_images
         save_cartdb = cartdb.objects.create(
             vendor=CARTvendor, name=CARTname, price=CARTprice,
-            commodity=CARTcommodity, url_list=CARTurl_list, pc_images=CARTpc_images,)  # 新增資料
+            commodity=CARTcommodity, url_list=CARTurl_list, pc_images=CARTpc_images, user=username)  # 新增資料
 
         save_cartdb.save()  # 儲存資料
     display_Filter = displayFilter(queryset=display_all)
@@ -594,6 +597,7 @@ def otdisplay(request):
 
 
 def othdd(request):
+    username = request.session["yourname"]
     hdd_all = hdd.objects.all()  # 變數=model的資料表
     All_data = All.objects.all()
     cart = request.POST.get('cart_name')
@@ -620,7 +624,7 @@ def othdd(request):
         CARTpc_images = cartname.pc_images
         save_cartdb = cartdb.objects.create(
             vendor=CARTvendor, name=CARTname, price=CARTprice,
-            commodity=CARTcommodity, url_list=CARTurl_list, pc_images=CARTpc_images,)  # 新增資料
+            commodity=CARTcommodity, url_list=CARTurl_list, pc_images=CARTpc_images, user=username)  # 新增資料
 
         save_cartdb.save()  # 儲存資料
     hdd_Filter = hddFilter(queryset=hdd_all)
@@ -636,6 +640,7 @@ def othdd(request):
 
 
 def otMB(request):
+    username = request.session["yourname"]
     mb_all = MB.objects.all()
     All_data = All.objects.all()
     cart = request.POST.get('cart_name')
@@ -662,7 +667,7 @@ def otMB(request):
         CARTpc_images = cartname.pc_images
         save_cartdb = cartdb.objects.create(
             vendor=CARTvendor, name=CARTname, price=CARTprice,
-            commodity=CARTcommodity, url_list=CARTurl_list, pc_images=CARTpc_images,)  # 新增資料
+            commodity=CARTcommodity, url_list=CARTurl_list, pc_images=CARTpc_images, user=username)  # 新增資料
 
         save_cartdb.save()  # 儲存資料
     mb_Filter = displayFilter(queryset=mb_all)
@@ -678,6 +683,7 @@ def otMB(request):
 
 
 def otPower(request):
+    username = request.session["yourname"]
     power_all = Power.objects.all()
     All_data = All.objects.all()
     cart = request.POST.get('cart_name')
@@ -704,7 +710,7 @@ def otPower(request):
         CARTpc_images = cartname.pc_images
         save_cartdb = cartdb.objects.create(
             vendor=CARTvendor, name=CARTname, price=CARTprice,
-            commodity=CARTcommodity, url_list=CARTurl_list, pc_images=CARTpc_images,)  # 新增資料
+            commodity=CARTcommodity, url_list=CARTurl_list, pc_images=CARTpc_images, user=username)  # 新增資料
 
         save_cartdb.save()  # 儲存資料
     power_Filter = displayFilter(queryset=power_all)
@@ -720,6 +726,7 @@ def otPower(request):
 
 
 def otssd(request):
+    username = request.session["yourname"]
     ssd_all = ssd.objects.all()
     All_data = All.objects.all()
     cart = request.POST.get('cart_name')
@@ -746,7 +753,7 @@ def otssd(request):
         CARTpc_images = cartname.pc_images
         save_cartdb = cartdb.objects.create(
             vendor=CARTvendor, name=CARTname, price=CARTprice,
-            commodity=CARTcommodity, url_list=CARTurl_list, pc_images=CARTpc_images,)  # 新增資料
+            commodity=CARTcommodity, url_list=CARTurl_list, pc_images=CARTpc_images, user=username)  # 新增資料
 
         save_cartdb.save()  # 儲存資料
     ssd_Filter = ssdFilter(queryset=ssd_all)
@@ -762,6 +769,7 @@ def otssd(request):
 
 
 def otMemory(request):
+    username = request.session["yourname"]
     memory_all = Memory.objects.all()
     All_data = All.objects.all()
     cart = request.POST.get('cart_name')
@@ -788,7 +796,7 @@ def otMemory(request):
         CARTpc_images = cartname.pc_images
         save_cartdb = cartdb.objects.create(
             vendor=CARTvendor, name=CARTname, price=CARTprice,
-            commodity=CARTcommodity, url_list=CARTurl_list, pc_images=CARTpc_images,)  # 新增資料
+            commodity=CARTcommodity, url_list=CARTurl_list, pc_images=CARTpc_images, user=username)  # 新增資料
 
         save_cartdb.save()  # 儲存資料
     memory_Filter = displayFilter(queryset=memory_all)
@@ -830,8 +838,10 @@ def CART(request):  # 購物清單
         else:
             pass
         if cart_result != 'NO' and cartdb.objects.filter(name=cart_result).exists():
-            cursor.execute(
-                "DELETE from myapp_cartdb where name=%s limit 1", [cart_result])
+            product_del = cartdb.objects.filter(name=cart_result).first()
+            product_del.delete()
+            # cursor.execute(
+            #     "DELETE from myapp_cartdb where name=%s limit1", [cart_result])
             cart_all = cartdb.objects.raw(
                 "select * from myapp_cartdb where user = %s", [username])
             total = 0
