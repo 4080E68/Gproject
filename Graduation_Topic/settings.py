@@ -86,12 +86,8 @@ WSGI_APPLICATION = 'Graduation_Topic.wsgi.application'
 # }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',  
-        'NAME': 'graduation_topic',  # 資料庫名稱
-        'USER': 'root',  # 資料庫帳號
-        'PASSWORD':'0000',  # 資料庫密碼
-        'HOST': 'localhost',  # Server(伺服器)位址
-        'PORT': '3306'  # Port號
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 PASSWORD_HASHERS = [
@@ -137,7 +133,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [ os.path.join(BASE_DIR,'static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

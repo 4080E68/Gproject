@@ -8,7 +8,6 @@ from django.contrib.auth.models import AbstractBaseUser
 from django.db.models import Sum
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth import authenticate
-from sqlalchemy import false, true
 from myapp.models import *
 from .filters import *
 import time
