@@ -209,6 +209,8 @@ def CPU(request):
 
     cpu_all = cpu.objects.all()
     All_data = All.objects.all()
+    lenAll = len(All_data)
+    lenCpu = len(cpu_all)
     cpu_Filter = cpuFilter(queryset=cpu_all)
     All_Filter = ALLFilter(queryset=All_data)
     if request.method == "POST":
@@ -225,6 +227,7 @@ def CPU(request):
 def HDD(request):
     hdd_all = hdd.objects.all()  # 變數=model的資料表
     All_data = All.objects.all()
+    lenAll = len(All_data)
     hdd_Filter = hddFilter(queryset=hdd_all)
     All_Filter = ALLFilter(queryset=All_data)
     if request.method == "POST":
