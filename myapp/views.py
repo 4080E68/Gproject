@@ -470,7 +470,6 @@ def otcpu(request):
     All_data = All.objects.all()
     cart = request.POST.get('cart_name')
     verify = request.session["verify"]
-    print("debud otcpu", verify)
     if verify == True:
         account = request.session["account"]
         localtime = time.ctime()
@@ -480,10 +479,11 @@ def otcpu(request):
     else:
         yourname = "尚未登入"
 
-    print(cart)
+    print("購物車"+str(cart))
     if cart == 'NO' or None:
         pass
     elif All.objects.filter(name_all=cart).exists():
+        print('成功！')
         username = request.session["yourname"]
         cartname = All.objects.filter(name_all=cart).first()
         CARTname = cartname.name_all
