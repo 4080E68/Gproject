@@ -5,7 +5,7 @@ from django.urls import include, re_path
 
 urlpatterns = [
     re_path('^callback', views.callback),
-    re_path('^index/$', views.index),
+    re_path('^$', views.index),
     re_path('^chassis/$', views.Chassis),
     re_path('^cpu/$', views.CPU),
     re_path('^hdd/$', views.HDD),
