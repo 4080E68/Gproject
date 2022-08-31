@@ -265,7 +265,7 @@ def callback(request):
 
 
 def index(request):
-    request.session.clear()
+    # request.session.clear()
 
     return render(request, 'index.html', locals())
 
