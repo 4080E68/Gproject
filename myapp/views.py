@@ -170,7 +170,7 @@ def callback(request):
                                                     "action": {
                                                         "type": "uri",
                                                         "label": "購買連結",
-                                                        "uri": "http://linecorp.com/"
+                                                        "uri": str(recommod.url_list)
                                                     }
                                                 }
                                             ],
