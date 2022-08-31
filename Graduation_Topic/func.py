@@ -37,7 +37,7 @@ def select(event, mtext):  # 查詢
 
     if flist[0] == 'myapp_cpu':
         result = cpu.objects.raw(
-            'SELECT * FROM myapp_cpu where (price > %s  and price < %s) and (binary name LIKE %s or binary name LIKE %s or binary name=%s) order by price limit 5;',
+            'SELECT * FROM myapp_cpu where (price > %s  and price < %s) and (name LIKE %s or name LIKE %s or name=%s) order by price limit 5;',
             [min_price, max_price, like, like2, name1])
     elif flist[0] == 'myapp_display':
         result = display.objects.raw(
@@ -754,7 +754,7 @@ def manageForm(event, mtext):  # 購物清單功能
     # save_total = total_db.objects.create(
     #     name="total1", total=total_price)  # 新增資料
 
-    #save_total.save()  # 儲存資料
+    # save_total.save()  # 儲存資料
 
     flex_message = FlexSendMessage(
         alt_text='搜尋結果',
@@ -1138,7 +1138,7 @@ def manageForm(event, mtext):  # 購物清單功能
                                 "action": {
                                     "type": "uri",
                                     "label": "購買連結",
-                                    "uri": "http://127.0.0.1:8000/test/"
+                                    "uri": "https://joblinebotapp.herokuapp.com/test/"
                                 },
                                 "style": "primary",
                                 "height": "sm",

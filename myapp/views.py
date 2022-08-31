@@ -55,11 +55,8 @@ def callback(request):
                     line_bot_api.reply_message(
                         event.reply_token, TextSendMessage(text='發生錯誤！'))
             if msg[:3] == '$$$' and len(msg) > 3:  # 商品查詢功能
-                try:
-                    func.select(event, msg)
-                except:
-                    line_bot_api.reply_message(
-                        event.reply_token, TextSendMessage(text='發生錯誤！'))
+                func.select(event, msg)
+
 # ==========================推薦功能============================================
 
             if event.message.text == "@推薦商品":  # 推薦商品功能
@@ -84,7 +81,7 @@ def callback(request):
                         linebotId=events[0].source.user_id)
                     account = user.account
                     result = prs.objects.raw(
-                        "SELECT id,account,type,count(*) as 次數 FROM graduation_topic.myapp_prs where account = %s group by type order by count(*) desc limit 1;", [account])
+                        "SELECT id,account,type,count(*) as 次數 FROM myapp_prs where account = %s group by type order by count(*) desc limit 1;", [account])
                     #  透過以上SQL獲得使用者最高點擊次數的項目
                     print("搜尋筆數為:"+str(len(result)))  # 查詢筆數
                     if len(result) >= 1:
@@ -111,15 +108,85 @@ def callback(request):
                             recommod = likechassis
                         try:
                             line_bot_api.reply_message(
-                                event.reply_token, TextSendMessage(text=recommod.name))
+                                event.reply_token, FlexSendMessage(
+                                    alt_text='推薦結果',
+                                    contents={
+                                        "type": "bubble",
+                                        "hero": {
+                                            "type": "image",
+                                            "url": str(recommod.pc_images),
+                                            "size": "full",
+                                            "aspectRatio": "20:13",
+                                            "aspectMode": "cover",
+                                        },
+                                        "body": {
+                                            "type": "box",
+                                            "layout": "vertical",
+                                            "contents": [
+                                                {
+                                                    "type": "text",
+                                                    "text": str(recommod.name),
+                                                    "size": "lg",
+                                                    "wrap": True
+                                                },
+                                                {
+                                                    "type": "separator",
+                                                    "color": "#000000"
+                                                },
+                                                {
+                                                    "type": "box",
+                                                    "layout": "vertical",
+                                                    "margin": "lg",
+                                                    "spacing": "sm",
+                                                    "contents": [
+                                                        {
+                                                            "type": "text",
+                                                            "text": str(recommod.commodity),
+                                                            "wrap": True,
+                                                            "size": "md",
+                                                        },
+
+
+                                                        {
+                                                            "type": "text",
+                                                            "text": '$' + str(recommod.price),
+                                                            "align": "end",
+                                                            "size": "xl",
+                                                            "weight": "bold",
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        "footer": {
+                                            "type": "box",
+                                            "layout": "vertical",
+                                            "spacing": "none",
+                                            "contents": [
+                                                {
+                                                    "type": "button",
+                                                    "style": "primary",
+                                                    "height": "sm",
+                                                    "action": {
+                                                        "type": "uri",
+                                                        "label": "購買連結",
+                                                        "uri": "http://linecorp.com/"
+                                                    }
+                                                }
+                                            ],
+                                            "flex": 0,
+                                            "margin": "xs"
+                                        }
+                                    }
+                                ))
                         except:
                             line_bot_api.reply_message(
                                 event.reply_token, TextSendMessage(text='發生錯誤！'))
                 else:
                     reply_arr = []
                     # line_bot_api.reply_message(
-                    #     event.reply_token, TextSendMessage(text='http://127.0.0.1:8000/bind/%s/' % events[0].source.user_id))
-                    url = 'http://127.0.0.1:8000/bind/%s/' % events[0].source.user_id
+                    #     event.reply_token, TextSendMessage(text='https://joblinebotapp.herokuapp.com/bind/%s/' % events[0].source.user_id))
+                    url = 'https://joblinebotapp.herokuapp.com/bind/%s/' % events[0].source.user_id
                     reply_arr.append(FlexSendMessage(
                         alt_text='搜尋結果',
                         contents={
@@ -354,14 +421,9 @@ def bind(request, key=None):
             messages = "綁定成功!!"
             request.session['id'] = key
             print(request.session['id'])
-        #
-        # else:
-        #     request.session["verify"] = True
-        #     name = users.objects.filter(account=ID)  # 比對帳號
-        #     for name in name:
-        #         request.session["yourname"] = name.username
-        #         request.session["account"] = name.account
-        #     return redirect('/aftlogin')
+            users.objects.filter(account=account).update(
+                linebotId=request.session['id']
+            )
 
     return render(request, 'bind.html', locals())
 
