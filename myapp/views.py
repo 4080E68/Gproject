@@ -186,7 +186,7 @@ def callback(request):
                     reply_arr = []
                     # line_bot_api.reply_message(
                     #     event.reply_token, TextSendMessage(text='https://joblinebotapp.herokuapp.com/bind/%s/' % events[0].source.user_id))
-                    url = 'https://joblinebotapp.herokuapp.com/bind/%s/' % events[0].source.user_id
+                    url = 'https://heroku-app.fly.dev/bind/%s/' % events[0].source.user_id
                     reply_arr.append(FlexSendMessage(
                         alt_text='搜尋結果',
                         contents={
