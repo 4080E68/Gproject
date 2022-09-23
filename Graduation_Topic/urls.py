@@ -26,6 +26,8 @@ urlpatterns = [
     re_path('^otssd/$', views.otssd),
     re_path('^otMemory/$', views.otMemory),
     re_path('^cart/$', views.CART),
+    re_path('^manager/$', views.manager),
+    path('update/<str:table>/<str:key>/', views.update),
     path('bind/<str:key>/', views.bind),
     path('admin/', admin.site.urls),
 ]

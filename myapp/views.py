@@ -9,6 +9,7 @@ from django.contrib.auth.models import AbstractBaseUser
 from django.db.models import Sum
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth import authenticate
+import myapp
 from myapp.models import *
 from .filters import *
 import time
@@ -351,6 +352,93 @@ def Chassis(request):
     }
     return render(request, 'chassis.html', context)
 
+
+def manager(request):
+    cursor = connection.cursor()
+    if(request.session["token"] != True):
+        return redirect('/login')
+    products = All.objects.all()
+    select = 'myapp_all'
+    if request.method == "POST":
+        try:
+            select = request.POST['select']
+            sql = "select * from " + str(select)
+            result = All.objects.raw(sql)
+            showProduct = result
+            # columns = showProduct.columns
+            # cursor.execute(sql)
+            # showProduct = cursor.fetchall()
+            # test = []
+            # for i in showProduct:
+            #     test.append(i)
+            # print(test[1][2])
+            option = select.split('_')
+        except:
+            pass
+        try:
+            delete = request.POST['del']
+            delete = delete.split('&')
+            print(delete[0],delete[1])
+        except:
+            pass
+        try:
+            name = request.POST['search']
+            namelike1 = '%' + name + '%'
+            namelike2 = name + '%'
+            namelike3 = '%' + name
+            result = All.objects.raw(
+                "select * from myapp_all where name like %s or name like %s or name like %s", [namelike1, namelike2, namelike3])
+            products = result
+        except:
+            pass
+    return render(request, 'Manager.html', locals())
+
+
+def update(request, table, key):
+    sql = 'select * from ' + str(table) + ' where id=' + str(key)
+    data = All.objects.raw(sql)
+    if request.method == "POST":
+        name = request.POST['product_name']
+        vendor = request.POST['product_vendor']
+        price = request.POST['product_price']
+        image = request.POST['product_image']
+        url = request.POST['product_url']
+        if(table=='myapp_all'):
+            All.objects.filter(id=key).update(
+                name=name,vendor=vendor,price=price,url_list=url,pc_images=image
+            )
+        elif(table=='myapp_cpu'):
+            cpu.objects.filter(id=key).update(
+                name=name,vendor=vendor,price=price,url_list=url,pc_images=image
+            )
+        elif(table=='myapp_ssd'):
+            ssd.objects.filter(id=key).update(
+                name=name,vendor=vendor,price=price,url_list=url,pc_images=image
+            )
+        elif(table=='myapp_display'):
+            display.objects.filter(id=key).update(
+                name=name,vendor=vendor,price=price,url_list=url,pc_images=image
+            )
+        elif(table=='myapp_chassis'):
+            chassis.objects.filter(id=key).update(
+                name=name,vendor=vendor,price=price,url_list=url,pc_images=image
+            )
+        elif(table=='myapp_hdd'):
+            hdd.objects.filter(id=key).update(
+                name=name,vendor=vendor,price=price,url_list=url,pc_images=image
+            )
+        elif(table=='myapp_mb'):
+            MB.objects.filter(id=key).update(
+                name=name,vendor=vendor,price=price,url_list=url,pc_images=image
+            )
+        elif(table=='myapp_memory'):
+            Memory.objects.filter(id=key).update(
+                name=name,vendor=vendor,price=price,url_list=url,pc_images=image
+            )
+        sql = 'select * from ' + str(table) + ' where id=' + str(key)
+        data = All.objects.raw(sql)
+
+    return render(request, 'update.html', locals())
 # ===========登入、註冊============================
 
 
@@ -386,20 +474,23 @@ def Login(request):
     if request.method == 'POST':
         ID = request.POST['username']
         userpassword = request.POST['password']
-
-        user = users.objects.filter(
-            account=ID, password=userpassword).exists()  # 比對帳號密碼
-        print(user)
-        if user == False:
-            messages = "登入失敗請確認帳號或密碼"
-            request.session["verify"] = False
+        if(ID == 'admin' and userpassword == 'admin'):
+            request.session["token"] = True
+            return redirect('/manager')
         else:
-            request.session["verify"] = True
-            name = users.objects.filter(account=ID)  # 比對帳號
-            for name in name:
-                request.session["yourname"] = name.username
-                request.session["account"] = name.account
-            return redirect('/aftlogin')
+            user = users.objects.filter(
+                account=ID, password=userpassword).exists()  # 比對帳號密碼
+            print(user)
+            if user == False:
+                messages = "登入失敗請確認帳號或密碼"
+                request.session["verify"] = False
+            else:
+                request.session["verify"] = True
+                name = users.objects.filter(account=ID)  # 比對帳號
+                for name in name:
+                    request.session["yourname"] = name.username
+                    request.session["account"] = name.account
+                return redirect('/aftlogin')
 
     return render(request, 'login.html', locals())
 
@@ -544,11 +635,11 @@ def otcpu(request):
     print("購物車"+str(cart))
     if cart == 'NO' or None:
         pass
-    elif All.objects.filter(name_all=cart).exists():
+    elif All.objects.filter(name=cart).exists():
         print('成功！')
         username = request.session["yourname"]
-        cartname = All.objects.filter(name_all=cart).first()
-        CARTname = cartname.name_all
+        cartname = All.objects.filter(name=cart).first()
+        CARTname = cartname.name
         CARTvendor = cartname.vendor
         CARTprice = cartname.price
         CARTcommodity = cartname.commodity
@@ -591,9 +682,9 @@ def otchassis(request):
     print(cart)
     if cart == 'NO' or None:
         pass
-    elif All.objects.filter(name_all=cart).exists():
-        cartname = All.objects.get(name_all=cart)
-        CARTname = cartname.name_all
+    elif All.objects.filter(name=cart).exists():
+        cartname = All.objects.get(name=cart)
+        CARTname = cartname.name
         CARTvendor = cartname.vendor
         CARTprice = cartname.price
         CARTcommodity = cartname.commodity
@@ -635,9 +726,9 @@ def otdisplay(request):
     print(cart)
     if cart == 'NO' or None:
         pass
-    elif All.objects.filter(name_all=cart).exists():
-        cartname = All.objects.get(name_all=cart)
-        CARTname = cartname.name_all
+    elif All.objects.filter(name=cart).exists():
+        cartname = All.objects.get(name=cart)
+        CARTname = cartname.name
         CARTvendor = cartname.vendor
         CARTprice = cartname.price
         CARTcommodity = cartname.commodity
@@ -679,9 +770,9 @@ def othdd(request):
     print(cart)
     if cart == 'NO' or None:
         pass
-    elif All.objects.filter(name_all=cart).exists():
-        cartname = All.objects.get(name_all=cart)
-        CARTname = cartname.name_all
+    elif All.objects.filter(name=cart).exists():
+        cartname = All.objects.get(name=cart)
+        CARTname = cartname.name
         CARTvendor = cartname.vendor
         CARTprice = cartname.price
         CARTcommodity = cartname.commodity
@@ -722,9 +813,9 @@ def otMB(request):
     print(cart)
     if cart == 'NO' or None:
         pass
-    elif All.objects.filter(name_all=cart).exists():
-        cartname = All.objects.get(name_all=cart)
-        CARTname = cartname.name_all
+    elif All.objects.filter(name=cart).exists():
+        cartname = All.objects.get(name=cart)
+        CARTname = cartname.name
         CARTvendor = cartname.vendor
         CARTprice = cartname.price
         CARTcommodity = cartname.commodity
@@ -765,9 +856,9 @@ def otPower(request):
     print(cart)
     if cart == 'NO' or None:
         pass
-    elif All.objects.filter(name_all=cart).exists():
-        cartname = All.objects.get(name_all=cart)
-        CARTname = cartname.name_all
+    elif All.objects.filter(name=cart).exists():
+        cartname = All.objects.get(name=cart)
+        CARTname = cartname.name
         CARTvendor = cartname.vendor
         CARTprice = cartname.price
         CARTcommodity = cartname.commodity
@@ -808,9 +899,9 @@ def otssd(request):
     print(cart)
     if cart == 'NO' or None:
         pass
-    elif All.objects.filter(name_all=cart).exists():
-        cartname = All.objects.get(name_all=cart)
-        CARTname = cartname.name_all
+    elif All.objects.filter(name=cart).exists():
+        cartname = All.objects.get(name=cart)
+        CARTname = cartname.name
         CARTvendor = cartname.vendor
         CARTprice = cartname.price
         CARTcommodity = cartname.commodity
@@ -851,9 +942,9 @@ def otMemory(request):
     print(cart)
     if cart == 'NO' or None:
         pass
-    elif All.objects.filter(name_all=cart).exists():
-        cartname = All.objects.get(name_all=cart)
-        CARTname = cartname.name_all
+    elif All.objects.filter(name=cart).exists():
+        cartname = All.objects.get(name=cart)
+        CARTname = cartname.name
         CARTvendor = cartname.vendor
         CARTprice = cartname.price
         CARTcommodity = cartname.commodity

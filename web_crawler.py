@@ -13,7 +13,7 @@ def web_crawler(keyword):
                                          port='3306',
                                          user='root',
                                          password='0000',
-                                         database='test',)
+                                         database='graduation_topic',)
 
     cursor = connection.cursor()
     try:
@@ -26,17 +26,17 @@ def web_crawler(keyword):
         driver.set_window_size(1024, 960)
 
         #進入指定網址
-        url = 'https://shopping.pchome.com.tw/'
+        url = 'https://ecshweb.pchome.com.tw/search/v3.3/?q=%E9%9B%BB%E6%BA%90%E4%BE%9B%E6%87%89%E5%99%A8&scope=all&sortParm=sale&sortOrder=dc&cateId=DSAZ1J'
         driver.get(url)
 
-        search_vedio = driver.find_element_by_id('keyword')
+        # search_vedio = driver.find_element_by_id('keyword')
         
-        search_vedio.send_keys(keyword)
-        time.sleep(1)
+        # search_vedio.send_keys(keyword)
+        # time.sleep(1)
 
-        search_button = driver.find_element_by_id('doSearch')
-        search_button.click()
-        #等待網頁讀取
+        # search_button = driver.find_element_by_id('doSearch')
+        # search_button.click()
+        # #等待網頁讀取
 
         time.sleep(2)
 
@@ -103,9 +103,9 @@ def web_crawler(keyword):
         try:
             for i in range(10):
                 
-                sql = 'INSERT INTO `test`.`test` (`id`,`name`, `price`, `Commodity`, `url_list`, `pc_images`) VALUES (%s,%s, %s, %s, %s, %s);'
+                sql = 'INSERT INTO `graduation_topic`.`myapp_power` (`id`,`vendor`,`name`, `price`, `Commodity`, `url_list`, `pc_images`,`Watts`) VALUES (%s,%s, %s, %s, %s, %s, %s);'
                 cursor.execute(
-                    sql, (i+1, pc_title_list[i], price_list[i], Commodity_list[i], pc_url_list[i], pc_images[i],))
+                    sql, (i+1,'測試', pc_title_list[i], price_list[i], Commodity_list[i], pc_url_list[i], pc_images[i],'瓦數'))
             
                 connection.commit()
             
@@ -121,4 +121,4 @@ def web_crawler(keyword):
         
 
 if __name__ == '__main__':
-    message = web_crawler('SSD')
+    message = web_crawler('電源供應器')

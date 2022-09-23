@@ -87,7 +87,7 @@ class PowerFilter(django_filters.FilterSet):
 
 
 class ALLFilter(django_filters.FilterSet):
-    name_all = django_filters.CharFilter(
+    name = django_filters.CharFilter(
         lookup_expr='icontains',
         widget=forms.TextInput(attrs={'class': 'form-control'}))
 

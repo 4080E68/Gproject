@@ -14,9 +14,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='All',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('vendor', models.CharField(default='', max_length=255)),
-                ('name_all', models.CharField(default='', max_length=255)),
+                ('name', models.CharField(default='', max_length=255)),
                 ('price', models.IntegerField(default='')),
                 ('commodity', models.CharField(default='', max_length=255)),
                 ('url_list', models.CharField(default='', max_length=255)),
@@ -26,7 +27,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='cartdb',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('vendor', models.CharField(default='', max_length=255)),
                 ('name', models.CharField(default='', max_length=255)),
                 ('price', models.IntegerField(default='')),
@@ -38,7 +40,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='chassis',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('vendor', models.CharField(default='', max_length=255)),
                 ('name', models.CharField(default='', max_length=255)),
                 ('price', models.IntegerField(default='')),
@@ -50,7 +53,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='cpu',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('vendor', models.CharField(default='', max_length=255)),
                 ('name', models.CharField(default='', max_length=255)),
                 ('price', models.IntegerField(default='')),
@@ -66,7 +70,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='db',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('vendor', models.CharField(default='', max_length=255)),
                 ('name', models.CharField(default='', max_length=255)),
                 ('price', models.IntegerField(default='')),
@@ -77,7 +82,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='display',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('vendor', models.CharField(default='', max_length=255)),
                 ('name', models.CharField(default='', max_length=255)),
                 ('price', models.IntegerField(default='')),
@@ -91,7 +97,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='hdd',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('vendor', models.CharField(default='', max_length=255)),
                 ('name', models.CharField(default='', max_length=255)),
                 ('price', models.IntegerField(default='')),
@@ -106,7 +113,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='hit',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('account', models.CharField(default='', max_length=255)),
                 ('cpu_hit', models.IntegerField(default=0)),
                 ('mb_hit', models.IntegerField(default=0)),
@@ -121,7 +129,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='MB',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('vendor', models.CharField(default='', max_length=255)),
                 ('name', models.CharField(default='', max_length=255)),
                 ('price', models.IntegerField(default='')),
@@ -134,14 +143,16 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Memory',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('vendor', models.CharField(default='', max_length=255)),
                 ('name', models.CharField(default='', max_length=255)),
                 ('price', models.IntegerField(default='')),
                 ('commodity', models.CharField(default='', max_length=255)),
                 ('url_list', models.CharField(default='', max_length=255)),
                 ('pc_images', models.CharField(default='', max_length=255)),
-                ('Memory_Specifications', models.CharField(default='', max_length=255)),
+                ('Memory_Specifications', models.CharField(
+                    default='', max_length=255)),
                 ('capacity_GB', models.IntegerField(default='')),
                 ('type', models.CharField(default='', max_length=255)),
                 ('clock_rate', models.IntegerField(default='')),
@@ -150,7 +161,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Power',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('vendor', models.CharField(default='', max_length=255)),
                 ('name', models.CharField(default='', max_length=255)),
                 ('price', models.IntegerField(default='')),
@@ -163,7 +175,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='prs',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('account', models.CharField(default='', max_length=255)),
                 ('type', models.CharField(default='', max_length=255)),
                 ('time', models.CharField(default='', max_length=255)),
@@ -172,7 +185,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ssd',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('vendor', models.CharField(default='', max_length=255)),
                 ('name', models.CharField(default='', max_length=255)),
                 ('price', models.IntegerField(default='')),
@@ -188,7 +202,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='users',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('account', models.CharField(default='', max_length=255)),
                 ('password', models.CharField(default='', max_length=255)),
                 ('email', models.EmailField(default='', max_length=255)),
