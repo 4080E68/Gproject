@@ -36,7 +36,7 @@
 		<br />
 		<form class="wat" method='POST'>
 			{% csrf_token %}
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;搜尋：{{ All_Filter.form.name }}
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;搜尋：{{ All_Filter.form.name_all }}
 			<input type="submit" class="btn btn-primary" value="查詢">
 		</form>
 	</center>
@@ -106,12 +106,13 @@
 				<td>{{aaa.speed}}</td>
 				<td>{{aaa.foot_position_cpu}}</td>
 				<td><input type="button" value="購買連結" onclick="window.open('{{aaa.url_list}}')"></td>
-				<form method="post"> {% csrf_token %}
+				<form method="post" target="nm_iframe"> {% csrf_token %}
 					<td><button value="{{ aaa.name }}" onclick="cart(this.value ,'{{ forloop.counter }}')"
 							id="{{ forloop.counter }}" name="cart_name">加入購物清單</button></td>
 				</form>
 			</tr>
 			{% endfor %}
+			<iframe id="id_iframe" name="nm_iframe" style="display:none;"></iframe>
 			{% elif cpu_Filter.qs|length == 0 %}
 			<h1>查詢無結果</h1>
 			{% elif All_Filter.qs|length >= 1 and cpu_Filter.qs|length == 62%}
@@ -143,17 +144,17 @@
 					<td>{{aaa.vendor}}</td>
 					<td><img src="{{aaa.pc_images}}" alt="{{aaa.name}}" title="{{aaa.name}}" width="200" height="200">
 					</td>
-					<td>{{aaa.name}}</td>
+					<td>{{aaa.name_all}}</td>
 					<td>{{aaa.price}}</td>
 					<td>{{aaa.commodity}}</td>
 					<td><input type="button" value="購買連結" onclick="window.open('{{aaa.url_list}}')"></td>
-					<form method="post"> {% csrf_token %}
-						<td><button value="{{ aaa.name }}" onclick="cart(this.value ,'{{ forloop.counter }}')"
+					<form method="post" target="nm_iframe"> {% csrf_token %}
+						<td><button value="{{ aaa.name_all }}" onclick="cart(this.value ,'{{ forloop.counter }}')"
 								id="{{ forloop.counter }}" name="cart_name">加入購物清單</button></td>
 					</form>
 				</tr>
-
 				{% endfor %}
+				<iframe id="id_iframe" name="nm_iframe" style="display:none;"></iframe>
 				{% else %}
 				<h1>查詢無結果</h1>
 				{% endif %}

@@ -34,7 +34,7 @@
 		<br />
 		<form class="wat" method='POST'>
 			{% csrf_token %}
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;搜尋：{{ All_Filter.form.name }}
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;搜尋：{{ All_Filter.form.name_all }}
 			<input type="submit" class="btn btn-primary" value="查詢">
 		</form>
 	</center>
@@ -132,7 +132,7 @@
 					<td>{{aaa.vendor}}</td>
 					<td><img src="{{aaa.pc_images}}" alt="{{aaa.name}}" title="{{aaa.name}}" width="200" height="200">
 					</td>
-					<td>{{aaa.name}}</td>
+					<td>{{aaa.name_all}}</td>
 					<td>{{aaa.price}}</td>
 					<td>{{aaa.commodity}}</td>
 

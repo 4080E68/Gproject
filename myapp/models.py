@@ -5,7 +5,7 @@ from django.db import models
 
 class All(models.Model):  # 設計LINE Bot所需要使用的資料表(Table)欄位
     vendor = models.CharField(max_length=255, default="")  # 名稱
-    name = models.CharField(max_length=255, default="")  # 名稱
+    name_all = models.CharField(max_length=255, default="")  # 名稱
     price = models.IntegerField(default="")  # 價格
     commodity = models.CharField(max_length=255, default="")
     url_list = models.CharField(max_length=255, default="")  # 商品連結
@@ -30,7 +30,7 @@ class cpu (models.Model):  # 設計LINE Bot所需要使用的資料表(Table)欄
     commodity = models.CharField(max_length=255, default="")
     url_list = models.CharField(max_length=255, default="")  # 商品連結
     pc_images = models.CharField(max_length=255, default="")  # 圖片網址
-    chip = models.CharField(max_length=255, default="")  # 核心
+    chip = models.IntegerField(default="")  # 核心
     thread = models.CharField(max_length=255, default="")  # 執行緒
     speed = models.CharField(max_length=255, default="")  # 時脈速度
     foot_position_cpu = models.CharField(max_length=255, default="")  # 腳位

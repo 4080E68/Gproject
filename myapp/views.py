@@ -277,11 +277,25 @@ def CPU(request):
 
     cpu_all = cpu.objects.all()
     All_data = All.objects.all()
-    lenAll = len(All_data)
-    lenCpu = len(cpu_all)
+    all_count = All.objects.all().count()
     cpu_Filter = cpuFilter(queryset=cpu_all)
     All_Filter = ALLFilter(queryset=All_data)
     if request.method == "POST":
+        try:
+            name = request.POST['search']
+            namelike1 = '%' + name + '%'
+            namelike2 = name + '%'
+            namelike3 = '%' + name
+            result = All.objects.raw(
+                "select * from myapp_all where name like %s or name like %s or name like %s", [namelike1, namelike2, namelike3])
+            showData = result
+            count = 0
+            for i in showData:
+                count += 1
+            print(count)
+
+        except:
+            pass
         cpu_Filter = cpuFilter(request.POST, queryset=cpu_all)
         All_Filter = ALLFilter(request.POST, queryset=All_data)
     context = {
@@ -289,23 +303,21 @@ def CPU(request):
         'All_Filter': All_Filter,
     }
 
-    return render(request, 'cpu.html', context)
+    return render(request, 'cpu.html', locals())
 
 
 def HDD(request):
     hdd_all = hdd.objects.all()  # 變數=model的資料表
     All_data = All.objects.all()
-    lenAll = len(All_data)
     hdd_Filter = hddFilter(queryset=hdd_all)
     All_Filter = ALLFilter(queryset=All_data)
-    if request.method == "POST":
-        hdd_Filter = hddFilter(request.POST, queryset=hdd_all)
-        All_Filter = ALLFilter(request.POST, queryset=All_data)
+    hdd_Filter = hddFilter(request.POST, queryset=hdd_all)
+    All_Filter = ALLFilter(request.POST, queryset=All_data)
     context = {
         'hdd_Filter': hdd_Filter,
         'All_Filter': All_Filter,
     }
-    return render(request, 'hdd.html', context)
+    return render(request, 'hdd.html', locals())
 
 
 def SSD(request):
@@ -362,23 +374,26 @@ def manager(request):
     if request.method == "POST":
         try:
             select = request.POST['select']
-            sql = "select * from " + str(select)
-            result = All.objects.raw(sql)
-            showProduct = result
-            # columns = showProduct.columns
-            # cursor.execute(sql)
-            # showProduct = cursor.fetchall()
-            # test = []
-            # for i in showProduct:
-            #     test.append(i)
-            # print(test[1][2])
-            option = select.split('_')
+            if(select == 'myapp_all'):
+                showProduct = ''
+            else:
+                sql = "select * from " + str(select)
+                result = All.objects.raw(sql)
+                showProduct = result
+                # columns = showProduct.columns
+                # cursor.execute(sql)
+                # showProduct = cursor.fetchall()
+                # test = []
+                # for i in showProduct:
+                #     test.append(i)
+                # print(test[1][2])
+                option = select.split('_')
         except:
             pass
         try:
             delete = request.POST['del']
             delete = delete.split('&')
-            print(delete[0],delete[1])
+            print(delete[0], delete[1])
         except:
             pass
         try:
@@ -387,7 +402,7 @@ def manager(request):
             namelike2 = name + '%'
             namelike3 = '%' + name
             result = All.objects.raw(
-                "select * from myapp_all where name like %s or name like %s or name like %s", [namelike1, namelike2, namelike3])
+                "select * from myapp_all where name_all like %s or name_all like %s or name_all like %s", [namelike1, namelike2, namelike3])
             products = result
         except:
             pass
@@ -395,6 +410,7 @@ def manager(request):
 
 
 def update(request, table, key):
+    table = table
     sql = 'select * from ' + str(table) + ' where id=' + str(key)
     data = All.objects.raw(sql)
     if request.method == "POST":
@@ -403,37 +419,41 @@ def update(request, table, key):
         price = request.POST['product_price']
         image = request.POST['product_image']
         url = request.POST['product_url']
-        if(table=='myapp_all'):
+        if(table == 'myapp_all'):
             All.objects.filter(id=key).update(
-                name=name,vendor=vendor,price=price,url_list=url,pc_images=image
+                name_all=name, vendor=vendor, price=price, url_list=url, pc_images=image
             )
-        elif(table=='myapp_cpu'):
+        elif(table == 'myapp_cpu'):
             cpu.objects.filter(id=key).update(
-                name=name,vendor=vendor,price=price,url_list=url,pc_images=image
+                name=name, vendor=vendor, price=price, url_list=url, pc_images=image
             )
-        elif(table=='myapp_ssd'):
+        elif(table == 'myapp_ssd'):
             ssd.objects.filter(id=key).update(
-                name=name,vendor=vendor,price=price,url_list=url,pc_images=image
+                name=name, vendor=vendor, price=price, url_list=url, pc_images=image
             )
-        elif(table=='myapp_display'):
+        elif(table == 'myapp_display'):
             display.objects.filter(id=key).update(
-                name=name,vendor=vendor,price=price,url_list=url,pc_images=image
+                name=name, vendor=vendor, price=price, url_list=url, pc_images=image
             )
-        elif(table=='myapp_chassis'):
+        elif(table == 'myapp_chassis'):
             chassis.objects.filter(id=key).update(
-                name=name,vendor=vendor,price=price,url_list=url,pc_images=image
+                name=name, vendor=vendor, price=price, url_list=url, pc_images=image
             )
-        elif(table=='myapp_hdd'):
+        elif(table == 'myapp_hdd'):
             hdd.objects.filter(id=key).update(
-                name=name,vendor=vendor,price=price,url_list=url,pc_images=image
+                name=name, vendor=vendor, price=price, url_list=url, pc_images=image
             )
-        elif(table=='myapp_mb'):
+        elif(table == 'myapp_mb'):
             MB.objects.filter(id=key).update(
-                name=name,vendor=vendor,price=price,url_list=url,pc_images=image
+                name=name, vendor=vendor, price=price, url_list=url, pc_images=image
             )
-        elif(table=='myapp_memory'):
+        elif(table == 'myapp_memory'):
             Memory.objects.filter(id=key).update(
-                name=name,vendor=vendor,price=price,url_list=url,pc_images=image
+                name=name, vendor=vendor, price=price, url_list=url, pc_images=image
+            )
+        elif(table == 'myapp_power'):
+            Power.objects.filter(id=key).update(
+                name=name, vendor=vendor, price=price, url_list=url, pc_images=image
             )
         sql = 'select * from ' + str(table) + ' where id=' + str(key)
         data = All.objects.raw(sql)
@@ -635,11 +655,11 @@ def otcpu(request):
     print("購物車"+str(cart))
     if cart == 'NO' or None:
         pass
-    elif All.objects.filter(name=cart).exists():
+    elif All.objects.filter(name_all=cart).exists():
         print('成功！')
         username = request.session["yourname"]
-        cartname = All.objects.filter(name=cart).first()
-        CARTname = cartname.name
+        cartname = All.objects.filter(name_all=cart).first()
+        CARTname = cartname.name_all
         CARTvendor = cartname.vendor
         CARTprice = cartname.price
         CARTcommodity = cartname.commodity
@@ -682,9 +702,9 @@ def otchassis(request):
     print(cart)
     if cart == 'NO' or None:
         pass
-    elif All.objects.filter(name=cart).exists():
-        cartname = All.objects.get(name=cart)
-        CARTname = cartname.name
+    elif All.objects.filter(name_all=cart).exists():
+        cartname = All.objects.filter(name_all=cart).first()
+        CARTname = cartname.name_all
         CARTvendor = cartname.vendor
         CARTprice = cartname.price
         CARTcommodity = cartname.commodity
@@ -726,9 +746,9 @@ def otdisplay(request):
     print(cart)
     if cart == 'NO' or None:
         pass
-    elif All.objects.filter(name=cart).exists():
-        cartname = All.objects.get(name=cart)
-        CARTname = cartname.name
+    elif All.objects.filter(name_all=cart).exists():
+        cartname = All.objects.filter(name_all=cart).first()
+        CARTname = cartname.name_all
         CARTvendor = cartname.vendor
         CARTprice = cartname.price
         CARTcommodity = cartname.commodity
@@ -770,9 +790,9 @@ def othdd(request):
     print(cart)
     if cart == 'NO' or None:
         pass
-    elif All.objects.filter(name=cart).exists():
-        cartname = All.objects.get(name=cart)
-        CARTname = cartname.name
+    elif All.objects.filter(name_all=cart).exists():
+        cartname = All.objects.filter(name_all=cart).first()
+        CARTname = cartname.name_all
         CARTvendor = cartname.vendor
         CARTprice = cartname.price
         CARTcommodity = cartname.commodity
@@ -813,9 +833,9 @@ def otMB(request):
     print(cart)
     if cart == 'NO' or None:
         pass
-    elif All.objects.filter(name=cart).exists():
-        cartname = All.objects.get(name=cart)
-        CARTname = cartname.name
+    elif All.objects.filter(name_all=cart).exists():
+        cartname = All.objects.filter(name_all=cart).first()
+        CARTname = cartname.name_all
         CARTvendor = cartname.vendor
         CARTprice = cartname.price
         CARTcommodity = cartname.commodity
@@ -856,9 +876,9 @@ def otPower(request):
     print(cart)
     if cart == 'NO' or None:
         pass
-    elif All.objects.filter(name=cart).exists():
-        cartname = All.objects.get(name=cart)
-        CARTname = cartname.name
+    elif All.objects.filter(name_all=cart).exists():
+        cartname = All.objects.filter(name_all=cart).first()
+        CARTname = cartname.name_all
         CARTvendor = cartname.vendor
         CARTprice = cartname.price
         CARTcommodity = cartname.commodity
@@ -899,9 +919,9 @@ def otssd(request):
     print(cart)
     if cart == 'NO' or None:
         pass
-    elif All.objects.filter(name=cart).exists():
-        cartname = All.objects.get(name=cart)
-        CARTname = cartname.name
+    elif All.objects.filter(name_all=cart).exists():
+        cartname = All.objects.filter(name_all=cart).first()
+        CARTname = cartname.name_all
         CARTvendor = cartname.vendor
         CARTprice = cartname.price
         CARTcommodity = cartname.commodity
@@ -942,9 +962,9 @@ def otMemory(request):
     print(cart)
     if cart == 'NO' or None:
         pass
-    elif All.objects.filter(name=cart).exists():
-        cartname = All.objects.get(name=cart)
-        CARTname = cartname.name
+    elif All.objects.filter(name_all=cart).exists():
+        cartname = All.objects.filter(name_all=cart).first()
+        CARTname = cartname.name_all
         CARTvendor = cartname.vendor
         CARTprice = cartname.price
         CARTcommodity = cartname.commodity

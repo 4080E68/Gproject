@@ -84,44 +84,45 @@
                 {% for item in showProduct%}
                 <tr>
                     <td>
-                        <form action="" method="post" style="display: inline;" target="nm_iframe" onSubmit="return dele('{{item.name}}');">
+                        <form action="" method="post" style="display: inline;" target="nm_iframe"
+                            onSubmit="return dele('{{item.name}}');">
                             {% csrf_token %}
                             <input type="hidden" value="{{item.id}}&{{select}}" name="del">
                             <button type="submit" class="btn btn-danger">刪除</button>
                         </form>
-                        <button type="button" class="btn btn-primary" onclick="update('{{select}}','{{item.id}}')">修改</button>
+                        <button type="button" class="btn btn-primary"
+                            onclick="update('{{select}}','{{item.id}}')">修改</button>
                     </td>
                     <td>{{item.id}}</td>
                     <td>{{item.vendor}}</td>
                     <td>{{item.name}}</td>
                     <td>{{item.price}}</td>
-
-
 
                 </tr>
                 {% endfor %}
                 {% else %}
-                {% for item in products%}
+                {% for item in products %}
                 <tr>
                     <td>
-                        <form action="" method="post" style="display: inline;" target="nm_iframe" onSubmit="return dele('{{item.name}}');">
+                        <form action="" method="post" style="display: inline;" target="nm_iframe"
+                            onSubmit="return dele('{{item.name}}');">
                             {% csrf_token %}
                             <input type="hidden" value="{{item.id}}&{{select}}" name="del">
                             <button type="submit" class="btn btn-danger">刪除</button>
                         </form>
-                        <button type="button" class="btn btn-primary" onclick="update('{{select}}','{{item.id}}')">修改</button>
+                        <button type="button" class="btn btn-primary"
+                            onclick="update('{{select}}','{{item.id}}')">修改</button>
                     </td>
-                    
+
                     <td>{{item.id}}</td>
                     <td>{{item.vendor}}</td>
-                    <td>{{item.name}}</td>
+                    <td>{{item.name_all}}</td>
                     <td>{{item.price}}</td>
                 </tr>
                 {% endfor %}
                 {% endif %}
-
                 <iframe id="id_iframe" name="nm_iframe" style="display:none;"></iframe>
-                
+
             </tbody>
         </table>
 
