@@ -11,6 +11,7 @@ urlpatterns = [
     re_path('^hdd/$', views.HDD),
     re_path('^ssd/$', views.SSD),
     re_path('^login/$', views.Login),
+    re_path('^adminLogout/$', views.adminLogout),
     re_path('^aftlogin/$', views.aftlogin),
     re_path('^signup/$', views.Signup),
     re_path('^MB/$', views.MB1),

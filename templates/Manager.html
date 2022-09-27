@@ -27,16 +27,16 @@
 <style>
     thead {
         position: sticky;
-        top: 56px;
+        top: 74px;
         font-size: 1.25rem;
     }
 </style>
 
 <body>
     <nav class="navbar navbar-dark bg-dark fixed-top">
-        <div class="container-fluid" style="padding: 0rem 5rem;">
-            <a class="navbar-brand">管理畫面</a>
-            <div style="width: 30%; display:flex;">
+        <div class="container-fluid" style="padding: 0rem 3rem;">
+            <a class="navbar-brand" style="font-size: 2rem;">電腦配件推薦系統</a>
+            <div style="width: 45%; display:flex; justify-content: center;">
                 <form action="" method="post" style="display: inline; margin-right: 1rem;" id="form">
                     {% csrf_token %}
                     <select class="form-select" aria-label="Default select example" id="select" name="select">
@@ -60,14 +60,16 @@
                     {% csrf_token %}
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
                         name="search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <button class="btn btn-outline-success" type="submit" style="margin-right: 0.5rem;">Search</button>
                 </form>
+                <a href="/adminLogout" ><button class="btn btn-outline-danger" type="button" style="margin-right: 0.5rem;">登出</button></a>
+                <a href="/" ><button class="btn btn-outline-light" type="button">回首頁</button></a>
             </div>
 
         </div>
     </nav>
 
-    <main style="margin: 8rem 0rem;">
+    <main style="margin: 74px 0rem;">
         <table class="table table-striped mt-3">
             <thead class="table-dark">
                 <tr>
@@ -105,7 +107,7 @@
                 <tr>
                     <td>
                         <form action="" method="post" style="display: inline;" target="nm_iframe"
-                            onSubmit="return dele('{{item.name}}');">
+                            onSubmit="return dele('{{item.name_all}}');">
                             {% csrf_token %}
                             <input type="hidden" value="{{item.id}}&{{select}}" name="del">
                             <button type="submit" class="btn btn-danger">刪除</button>

@@ -277,6 +277,7 @@ def CPU(request):
 
     cpu_all = cpu.objects.all()
     All_data = All.objects.all()
+    All_data_count = All.objects.all().count()
     all_count = All.objects.all().count()
     cpu_Filter = cpuFilter(queryset=cpu_all)
     All_Filter = ALLFilter(queryset=All_data)
@@ -309,6 +310,7 @@ def CPU(request):
 def HDD(request):
     hdd_all = hdd.objects.all()  # 變數=model的資料表
     All_data = All.objects.all()
+    All_data_count = All.objects.all().count()
     hdd_Filter = hddFilter(queryset=hdd_all)
     All_Filter = ALLFilter(queryset=All_data)
     hdd_Filter = hddFilter(request.POST, queryset=hdd_all)
@@ -323,6 +325,7 @@ def HDD(request):
 def SSD(request):
     ssd_all = ssd.objects.all()
     All_data = All.objects.all()
+    All_data_count = All.objects.all().count()
     ssd_Filter = ssdFilter(queryset=ssd_all)
     All_Filter = ALLFilter(queryset=All_data)
     if request.method == "POST":
@@ -332,12 +335,13 @@ def SSD(request):
         'ssd_Filter': ssd_Filter,
         'All_Filter': All_Filter,
     }
-    return render(request, 'ssd.html', context)
+    return render(request, 'ssd.html', locals())
 
 
 def Display(request):
     display_all = display.objects.all()
     All_data = All.objects.all()
+    All_data_count = All.objects.all().count()
     display_Filter = displayFilter(queryset=display_all)
     All_Filter = ALLFilter(queryset=All_data)
     if request.method == "POST":
@@ -347,12 +351,13 @@ def Display(request):
         'display_Filter': display_Filter,
         'All_Filter': All_Filter,
     }
-    return render(request, 'display.html', context)
+    return render(request, 'display.html', locals())
 
 
 def Chassis(request):
     chassis_all = chassis.objects.all()
     All_data = All.objects.all()
+    All_data_count = All.objects.all().count()
     chassis_Filter = displayFilter(queryset=chassis_all)
     All_Filter = ALLFilter(queryset=All_data)
     if request.method == "POST":
@@ -362,7 +367,7 @@ def Chassis(request):
         'chassis_Filter': chassis_Filter,
         'All_Filter': All_Filter,
     }
-    return render(request, 'chassis.html', context)
+    return render(request, 'chassis.html', locals())
 
 
 def manager(request):
@@ -393,7 +398,25 @@ def manager(request):
         try:
             delete = request.POST['del']
             delete = delete.split('&')
-            print(delete[0], delete[1])
+            if(delete[1] == 'myapp_all'):
+                All.objects.filter(id=delete[0]).delete()
+            elif(delete[1] == 'myapp_cpu'):
+                cpu.objects.filter(id=delete[0]).delete()
+            elif(delete[1] == 'myapp_ssd'):
+                ssd.objects.filter(id=delete[0]).delete()
+            elif(delete[1] == 'myapp_display'):
+                display.objects.filter(id=delete[0]).delete()
+            elif(delete[1] == 'myapp_chassis'):
+                chassis.objects.filter(id=delete[0]).delete()
+            elif(delete[1] == 'myapp_hdd'):
+                hdd.objects.filter(id=delete[0]).delete()
+            elif(delete[1] == 'myapp_mb'):
+                MB.objects.filter(id=delete[0]).delete()
+            elif(delete[1] == 'myapp_memory'):
+                Memory.objects.filter(id=delete[0]).delete()
+            elif(delete[1] == 'myapp_power'):
+                Power.objects.filter(id=delete[0]).delete()
+            products = All.objects.all()
         except:
             pass
         try:
@@ -407,6 +430,11 @@ def manager(request):
         except:
             pass
     return render(request, 'Manager.html', locals())
+
+
+def adminLogout(request):
+    request.session["token"] = False
+    return redirect('/')
 
 
 def update(request, table, key):
@@ -596,6 +624,7 @@ def aftlogin(request):
 def MB1(request):
     mb_all = MB.objects.all()
     All_data = All.objects.all()
+    All_data_count = All.objects.all().count()
     mb_Filter = displayFilter(queryset=mb_all)
     All_Filter = ALLFilter(queryset=All_data)
     if request.method == "POST":
@@ -605,12 +634,13 @@ def MB1(request):
         'mb_Filter': mb_Filter,
         'All_Filter': All_Filter,
     }
-    return render(request, 'MB.html', context)
+    return render(request, 'MB.html', locals())
 
 
 def Memory1(request):
     memory_all = Memory.objects.all()
     All_data = All.objects.all()
+    All_data_count = All.objects.all().count()
     memory_Filter = displayFilter(queryset=memory_all)
     All_Filter = ALLFilter(queryset=All_data)
     if request.method == "POST":
@@ -620,12 +650,13 @@ def Memory1(request):
         'memory_Filter': memory_Filter,
         'All_Filter': All_Filter,
     }
-    return render(request, 'Memory.html', context)
+    return render(request, 'Memory.html', locals())
 
 
 def Power1(request):
     power_all = Power.objects.all()
     All_data = All.objects.all()
+    All_data_count = All.objects.all().count()
     power_Filter = displayFilter(queryset=power_all)
     All_Filter = ALLFilter(queryset=All_data)
     if request.method == "POST":
@@ -635,12 +666,13 @@ def Power1(request):
         'power_Filter': power_Filter,
         'All_Filter': All_Filter,
     }
-    return render(request, 'Power.html', context)
+    return render(request, 'Power.html', locals())
 
 
 def otcpu(request):
     cpu_all = cpu.objects.all()
     All_data = All.objects.all()
+    All_data_count = All.objects.all().count()
     cart = request.POST.get('cart_name')
     verify = request.session["verify"]
     if verify == True:
@@ -688,6 +720,7 @@ def otchassis(request):
     username = request.session["yourname"]
     chassis_all = chassis.objects.all()
     All_data = All.objects.all()
+    All_data_count = All.objects.all().count()
     cart = request.POST.get('cart_name')
     verify = request.session["verify"]
     print("debud otcpu", verify)
@@ -731,6 +764,7 @@ def otdisplay(request):
     username = request.session["yourname"]
     display_all = display.objects.all()
     All_data = All.objects.all()
+    All_data_count = All.objects.all().count()
     cart = request.POST.get('cart_name')
     verify = request.session["verify"]
     print("debud otcpu", verify)
@@ -776,6 +810,7 @@ def othdd(request):
     username = request.session["yourname"]
     hdd_all = hdd.objects.all()  # 變數=model的資料表
     All_data = All.objects.all()
+    All_data_count = All.objects.all().count()
     cart = request.POST.get('cart_name')
     verify = request.session["verify"]
     print("debud otcpu", verify)
@@ -812,13 +847,14 @@ def othdd(request):
         'hdd_Filter': hdd_Filter,
         'All_Filter': All_Filter,
     }
-    return render(request, 'othdd.html', context)
+    return render(request, 'othdd.html', locals())
 
 
 def otMB(request):
     username = request.session["yourname"]
     mb_all = MB.objects.all()
     All_data = All.objects.all()
+    All_data_count = All.objects.all().count()
     cart = request.POST.get('cart_name')
     verify = request.session["verify"]
     print("debud otcpu", verify)
@@ -855,13 +891,14 @@ def otMB(request):
         'mb_Filter': mb_Filter,
         'All_Filter': All_Filter,
     }
-    return render(request, 'otMB.html', context)
+    return render(request, 'otMB.html', locals())
 
 
 def otPower(request):
     username = request.session["yourname"]
     power_all = Power.objects.all()
     All_data = All.objects.all()
+    All_data_count = All.objects.all().count()
     cart = request.POST.get('cart_name')
     verify = request.session["verify"]
     print("debud otcpu", verify)
@@ -898,13 +935,14 @@ def otPower(request):
         'power_Filter': power_Filter,
         'All_Filter': All_Filter,
     }
-    return render(request, 'otPower.html', context)
+    return render(request, 'otPower.html', locals())
 
 
 def otssd(request):
     username = request.session["yourname"]
     ssd_all = ssd.objects.all()
     All_data = All.objects.all()
+    All_data_count = All.objects.all().count()
     cart = request.POST.get('cart_name')
     verify = request.session["verify"]
     print("debud otcpu", verify)
@@ -941,13 +979,14 @@ def otssd(request):
         'ssd_Filter': ssd_Filter,
         'All_Filter': All_Filter,
     }
-    return render(request, 'otssd.html', context)
+    return render(request, 'otssd.html', locals())
 
 
 def otMemory(request):
     username = request.session["yourname"]
     memory_all = Memory.objects.all()
     All_data = All.objects.all()
+    All_data_count = All.objects.all().count()
     cart = request.POST.get('cart_name')
     verify = request.session["verify"]
     print("debud otcpu", verify)
@@ -984,7 +1023,7 @@ def otMemory(request):
         'memory_Filter': memory_Filter,
         'All_Filter': All_Filter,
     }
-    return render(request, 'otMemory.html', context)
+    return render(request, 'otMemory.html', locals())
 
 
 def CART(request):  # 購物清單
