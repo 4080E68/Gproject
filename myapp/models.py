@@ -118,8 +118,10 @@ class db(models.Model):  # 設計LINE Bot所需要使用的資料表(Table)欄�
     vendor = models.CharField(max_length=255, default="")  # 名稱
     name = models.CharField(max_length=255, default="")  # 名稱
     price = models.IntegerField(default="")  # 價格
-    pc_images = models.CharField(max_length=3000, default="")  # 圖片網址
-    url_list = models.CharField(max_length=3000, default="")  # 商品連結
+    pc_images = models.CharField(max_length=255, default="")  # 圖片網址
+    url_list = models.CharField(max_length=255, default="")  # 商品連結
+    lineID = models.CharField(max_length=255, default="")  # 商品連結
+    formID = models.CharField(max_length=255, default="")  # 商品連結
 
 
 class users(models.Model):

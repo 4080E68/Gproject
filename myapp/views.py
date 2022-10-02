@@ -46,12 +46,13 @@ def callback(request):
             return HttpResponseBadRequest()
 
         for event in events:
+            lineId = events[0].source.user_id
             if isinstance(event, MessageEvent):  # 如果有訊息事件
                 msg = event.message.text
             if msg[:3] == '###' and len(msg) > 3:  # 購物清單功能
                 # func.manageForm(event, msg)
                 try:
-                    func.manageForm(event, msg)
+                    func.manageForm(event, msg, lineId)
                 except:
                     line_bot_api.reply_message(
                         event.reply_token, TextSendMessage(text='發生錯誤！'))
@@ -264,17 +265,18 @@ def callback(request):
     else:
         return HttpResponseBadRequest()
 
-def form (request):
-    intel = cpu.objects.filter(vendor = 'intel')[:10]
-    amd = cpu.objects.filter(vendor = 'AMD')[:10]
-    mb_1 = MB.objects.filter(vendor = '華碩')[:7]
-    mb_2 = MB.objects.filter(vendor = '技嘉')[:7]
-    mb_3 = MB.objects.filter(vendor = '微星')[:7]
-    ssd1 = ssd.objects.filter(vendor = '三星')[:7]
-    ssd2 = ssd.objects.filter(vendor = 'WD')[:7]
-    ssd3 = ssd.objects.filter(vendor = '金士頓')[:7]
+
+def form(request):
+    intel = cpu.objects.filter(vendor='intel')[:10]
+    amd = cpu.objects.filter(vendor='AMD')[:10]
+    mb_1 = MB.objects.filter(vendor='華碩')[:7]
+    mb_2 = MB.objects.filter(vendor='技嘉')[:7]
+    mb_3 = MB.objects.filter(vendor='微星')[:7]
+    ssd1 = ssd.objects.filter(vendor='三星')[:7]
+    ssd2 = ssd.objects.filter(vendor='WD')[:7]
+    ssd3 = ssd.objects.filter(vendor='金士頓')[:7]
     hdd1 = hdd.objects.filter(vendor='東芝Toshibe')[:7]
-    hdd2 = hdd.objects.filter(vendor = 'WD')[:7]
+    hdd2 = hdd.objects.filter(vendor='WD')[:7]
     hdd3 = hdd.objects.filter(vendor='希捷Seagate')[:7]
     display1 = display.objects.filter(vendor='MSI 微星')[:7]
     display2 = display.objects.filter(vendor='華碩')[:7]
@@ -288,7 +290,11 @@ def form (request):
     chassis1 = chassis.objects.filter(vendor='ABKONCORE')[:7]
     chassis2 = chassis.objects.filter(vendor='Antec安鈦克')[:7]
     chassis3 = chassis.objects.filter(vendor='ASUS華碩')[:7]
-    return render(request, 'form.html',locals())
+    return render(request, 'form.html', locals())
+
+def configure(request, key, formid):
+    data = db.objects.filter(lineID=key) & db.objects.filter(formID=formid)
+    return render(request, 'configure.html', locals())
 def index(request):
     # request.session.clear()
 

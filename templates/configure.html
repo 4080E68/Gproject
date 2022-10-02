@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <link rel="icon" href="icon位置">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="rebots" content="index, follow" />
+    <meta name="description" content="網頁說明文字">
+    <meta name="author" content="作者" />
+    <title>配置網頁</title>
+    <link rel="shortcut icon" href="">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/umd/popper.min.js"
+        integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js"
+        integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container d-flex flex-column justify-content-center align-items-center">
+        <h1 style="padding: 1rem;">配置清單</h1>
+        {% for item in data %}
+        <div class="card mb-2 w-100">
+            <h5 class="card-header">{{item.vendor}}</h5>
+            <div class="card-body">
+                <h5 class="card-title">{{item.name}}</h5>
+                <p class="card-text text-end" style="font-size: 1.15rem;">價格:${{item.price}}</p>
+                <a href="{{item.url_list}}" class="btn btn-success w-100">前往購買</a>
+            </div>
+        </div>
+        <!-- <div class="card mb-4" style="width: 100%;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img style="width: 100%; display: block; margin: auto;" src='{{item.pc_images}}' class="img-fluid rounded-start" alt="{{item.name}}" title="{{item.name}}">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">{{item.name}}</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+                            additional
+                            content. This content is a little bit longer.</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        {% endfor %}
+
+    </div>
+
+
+</body>
+
+</html>

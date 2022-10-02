@@ -12,6 +12,7 @@ import datetime
 import requests
 from bs4 import BeautifulSoup
 import time
+import uuid
 from urllib.request import urlretrieve
 line_bot_api = LineBotApi(settings.LINE_CHANNEL_ACCESS_TOKEN)
 
@@ -304,7 +305,7 @@ def select(event, mtext):  # 查詢
                                 "label": "action",
                                 "uri": str(result2_url_list)
                             }
-                    },
+                            },
                     {
                             "type": "bubble",
                             "size": "kilo",
@@ -382,7 +383,7 @@ def select(event, mtext):  # 查詢
                                 "label": "action",
                                 "uri": str(result3_url_list)
                             }
-                            },
+                        },
                     {
                             "type": "bubble",
                             "size": "kilo",
@@ -461,7 +462,7 @@ def select(event, mtext):  # 查詢
                                 "label": "action",
                                 "uri": str(result4_url_list)
                             }
-                        },
+                    },
                     {
                             "type": "bubble",
                             "size": "kilo",
@@ -545,7 +546,7 @@ def select(event, mtext):  # 查詢
                                 "label": "action",
                                 "uri": str(result5_url_list)
                             }
-                        }
+                    }
 
                 ]
 
@@ -561,16 +562,17 @@ def select(event, mtext):  # 查詢
             event.reply_token, TextSendMessage(text='查無結果！'))
 
 
-def manageForm(event, mtext):  # 購物清單功能
-    flist = mtext[3:].split('#')
+def manageForm(event, mtext, lineid):  # 購物清單功能
 
+    flist = mtext[3:].split('#')
+    formid = uuid.uuid4()
     if flist[0] == "請選擇CPU":
         CPU_name = "未選擇CPU"
         CPU_price = 0
         CPU_url = "https://24h.pchome.com.tw/"
 
     elif cpu.objects.filter(name=flist[0]).exists():  # CPU
-        cpu_name = cpu.objects.get(name=flist[0])
+        cpu_name = cpu.objects.filter(name=flist[0]).first()
 
         cpu_vendor = cpu_name.vendor
         CPU_name = cpu_name.name
@@ -580,7 +582,7 @@ def manageForm(event, mtext):  # 購物清單功能
 
         save_cpu = db.objects.create(
             vendor=cpu_vendor, name=CPU_name, price=CPU_price,
-            pc_images=CPU_images, url_list=CPU_url,)  # 新增資料
+            pc_images=CPU_images, url_list=CPU_url, lineID=lineid, formID=formid)  # 新增資料
         save_cpu.save()  # 儲存資料
     else:
         CPU_name = "資料錯誤"
@@ -592,7 +594,7 @@ def manageForm(event, mtext):  # 購物清單功能
         MB_price = 0
         MB_url = "https://24h.pchome.com.tw/"
     elif MB.objects.filter(name=flist[1]).exists():  # 主機板
-        MB_name = MB.objects.get(name=flist[1])
+        MB_name = MB.objects.filter(name=flist[1]).first()
         MB_vendor = MB_name.vendor
         MB_NAME = MB_name.name
         MB_price = MB_name.price
@@ -601,7 +603,7 @@ def manageForm(event, mtext):  # 購物清單功能
 
         save_mb = db.objects.create(
             vendor=MB_vendor, name=MB_NAME, price=MB_price,
-            pc_images=MB_images, url_list=MB_url, )  # 新增資料
+            pc_images=MB_images, url_list=MB_url, lineID=lineid, formID=formid)  # 新增資料
 
         save_mb.save()  # 儲存資料
     else:
@@ -614,7 +616,7 @@ def manageForm(event, mtext):  # 購物清單功能
         SSD_price = 0
         SSD_url = "https://24h.pchome.com.tw/"
     elif ssd.objects.filter(name=flist[2]).exists():  # SSD
-        ssd_name = ssd.objects.get(name=flist[2])
+        ssd_name = ssd.objects.filter(name=flist[2]).first()
         SSD_vendor = ssd_name.vendor
         SSD_name = ssd_name.name
         SSD_images = ssd_name.pc_images
@@ -623,7 +625,7 @@ def manageForm(event, mtext):  # 購物清單功能
 
         save_SSD = db.objects.create(
             vendor=SSD_vendor, name=SSD_name, price=SSD_price,
-            pc_images=SSD_images, url_list=SSD_url, )  # 新增資料
+            pc_images=SSD_images, url_list=SSD_url, lineID=lineid, formID=formid)  # 新增資料
 
         save_SSD.save()  # 儲存資料
     else:
@@ -637,7 +639,7 @@ def manageForm(event, mtext):  # 購物清單功能
         HDD_url = "https://24h.pchome.com.tw/"
 
     elif hdd.objects.filter(name=flist[3]).exists():  # HDD
-        hdd_name = hdd.objects.get(name=flist[3])
+        hdd_name = hdd.objects.filter(name=flist[3]).first()
         HDD_vendor = hdd_name.vendor
         HDD_name = hdd_name.name
         HDD_price = hdd_name.price
@@ -646,7 +648,7 @@ def manageForm(event, mtext):  # 購物清單功能
 
         save_HDD = db.objects.create(
             vendor=HDD_vendor, name=HDD_name, price=HDD_price,
-            pc_images=HDD_images, url_list=HDD_url, )  # 新增資料
+            pc_images=HDD_images, url_list=HDD_url, lineID=lineid, formID=formid)  # 新增資料
 
         save_HDD.save()  # 儲存資料
 
@@ -661,7 +663,7 @@ def manageForm(event, mtext):  # 購物清單功能
         Display_url = "https://24h.pchome.com.tw/"
 
     elif display.objects.filter(name=flist[4]).exists():  # 顯示卡
-        display_name = display.objects.get(name=flist[4])
+        display_name = display.objects.filter(name=flist[4]).first()
         Display_vendor = display_name.vendor
         Display_name = display_name.name
         Display_price = display_name.price
@@ -670,7 +672,7 @@ def manageForm(event, mtext):  # 購物清單功能
 
         save_Display = db.objects.create(
             vendor=Display_vendor, name=Display_name, price=Display_price,
-            pc_images=Display_images, url_list=Display_url, )  # 新增資料
+            pc_images=Display_images, url_list=Display_url, lineID=lineid, formID=formid)  # 新增資料
 
         save_Display.save()  # 儲存資料
     else:
@@ -684,7 +686,7 @@ def manageForm(event, mtext):  # 購物清單功能
         MEMORY_url = "https://24h.pchome.com.tw/"
 
     elif Memory.objects.filter(name=flist[5]).exists():  # 記憶體
-        Memory_name = Memory.objects.get(name=flist[5])
+        Memory_name = Memory.objects.filter(name=flist[5]).first()
         MEMORY_name = Memory_name.name
         MEMORY_price = Memory_name.price
         MEMORY_url = Memory_name.url_list
@@ -693,7 +695,7 @@ def manageForm(event, mtext):  # 購物清單功能
 
         save_Memory = db.objects.create(
             vendor=MEMORY_vendor, name=MEMORY_name, price=MEMORY_price,
-            pc_images=MEMORY_images, url_list=MEMORY_url, )  # 新增資料
+            pc_images=MEMORY_images, url_list=MEMORY_url, lineID=lineid, formID=formid)  # 新增資料
 
         save_Memory.save()  # 儲存資料
     else:
@@ -706,7 +708,7 @@ def manageForm(event, mtext):  # 購物清單功能
         POWER_price = 0
         POWER_url = "https://24h.pchome.com.tw/"
     elif Power.objects.filter(name=flist[6]).exists():  # 電源供應器
-        Power_name = Power.objects.get(name=flist[6])
+        Power_name = Power.objects.filter(name=flist[6]).first()
         POWER_name = Power_name.name
         POWER_price = Power_name.price
         POWER_url = Power_name.url_list
@@ -715,7 +717,7 @@ def manageForm(event, mtext):  # 購物清單功能
 
         save_POWER = db.objects.create(
             vendor=POWER_vendor, name=POWER_name, price=POWER_price,
-            pc_images=POWER_images, url_list=POWER_url, )  # 新增資料
+            pc_images=POWER_images, url_list=POWER_url, lineID=lineid, formID=formid)  # 新增資料
 
         save_POWER.save()  # 儲存資料
     else:
@@ -728,7 +730,7 @@ def manageForm(event, mtext):  # 購物清單功能
         CASE_price = 0
         CASE_url = "https://24h.pchome.com.tw/"
     elif chassis.objects.filter(name=flist[7]).exists():  # 機殼
-        chassis_name = chassis.objects.get(name=flist[7])
+        chassis_name = chassis.objects.filter(name=flist[7]).first()
         CASE_name = chassis_name.name
         CASE_price = chassis_name.price
         CASE_url = chassis_name.url_list
@@ -737,20 +739,15 @@ def manageForm(event, mtext):  # 購物清單功能
 
         save_CASE = db.objects.create(
             vendor=CASE_vendor, name=CASE_name, price=CASE_price,
-            pc_images=CASE_images, url_list=CASE_url, )  # 新增資料
+            pc_images=CASE_images, url_list=CASE_url, lineID=lineid, formID=formid)  # 新增資料
 
         save_CASE.save()  # 儲存資料
     else:
         CASE_name = "資料錯誤"
         CASE_price = 0
         CASE_url = "https://24h.pchome.com.tw/"
-
-    for i in range(8):
-        print(flist[i])
-
     total_price = int(CPU_price)+int(MB_price)+int(SSD_price)+int(HDD_price) + \
         int(Display_price)+int(MEMORY_price)+int(POWER_price)+int(CASE_price)
-    print(total_price)
     # save_total = total_db.objects.create(
     #     name="total1", total=total_price)  # 新增資料
 
@@ -1138,7 +1135,7 @@ def manageForm(event, mtext):  # 購物清單功能
                                 "action": {
                                     "type": "uri",
                                     "label": "購買連結",
-                                    "uri": "https://joblinebotapp.herokuapp.com/test/"
+                                    "uri": "https://gprojectapp.herokuapp.com/configure/"+str(lineid)+'/'+str(formid),
                                 },
                                 "style": "primary",
                                 "height": "sm",

@@ -28,6 +28,7 @@ urlpatterns = [
     re_path('^otMemory/$', views.otMemory),
     re_path('^cart/$', views.CART),
     re_path('^form/$', views.form),
+    path('configure/<str:key>/<str:formid>', views.configure),
     re_path('^manager/$', views.manager),
     path('update/<str:table>/<str:key>/', views.update),
     path('bind/<str:key>/', views.bind),
