@@ -264,7 +264,31 @@ def callback(request):
     else:
         return HttpResponseBadRequest()
 
-
+def form (request):
+    intel = cpu.objects.filter(vendor = 'intel')[:10]
+    amd = cpu.objects.filter(vendor = 'AMD')[:10]
+    mb_1 = MB.objects.filter(vendor = '華碩')[:7]
+    mb_2 = MB.objects.filter(vendor = '技嘉')[:7]
+    mb_3 = MB.objects.filter(vendor = '微星')[:7]
+    ssd1 = ssd.objects.filter(vendor = '三星')[:7]
+    ssd2 = ssd.objects.filter(vendor = 'WD')[:7]
+    ssd3 = ssd.objects.filter(vendor = '金士頓')[:7]
+    hdd1 = hdd.objects.filter(vendor='東芝Toshibe')[:7]
+    hdd2 = hdd.objects.filter(vendor = 'WD')[:7]
+    hdd3 = hdd.objects.filter(vendor='希捷Seagate')[:7]
+    display1 = display.objects.filter(vendor='MSI 微星')[:7]
+    display2 = display.objects.filter(vendor='華碩')[:7]
+    display3 = display.objects.filter(vendor='技嘉')[:7]
+    Memory1 = Memory.objects.filter(vendor='威剛ADATA')[:7]
+    Memory2 = Memory.objects.filter(vendor='巨蟒ANACOMDA')[:7]
+    Memory3 = Memory.objects.filter(vendor='宇瞻Apacer')[:7]
+    Power1 = Power.objects.filter(vendor='CORSAIR 海盜船')[:7]
+    Power2 = Power.objects.filter(vendor='Cooler Master')[:7]
+    Power3 = Power.objects.filter(vendor='ASUS 華碩')[:7]
+    chassis1 = chassis.objects.filter(vendor='ABKONCORE')[:7]
+    chassis2 = chassis.objects.filter(vendor='Antec安鈦克')[:7]
+    chassis3 = chassis.objects.filter(vendor='ASUS華碩')[:7]
+    return render(request, 'form.html',locals())
 def index(request):
     # request.session.clear()
 

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- LINE Tag Base Code -->
+	<!-- Do Not Modify -->
+	<script>
+		(function (g, d, o) {
+			g._ltq = g._ltq || []; g._lt = g._lt || function () { g._ltq.push(arguments) };
+			var h = location.protocol === 'https:' ? 'https://d.line-scdn.net' : 'http://d.line-cdn.net';
+			var s = d.createElement('script'); s.async = 1;
+			s.src = o || h + '/n/line_tag/public/release/v1/lt.js';
+			var t = d.getElementsByTagName('script')[0]; t.parentNode.insertBefore(s, t);
+		})(window, document);
+		_lt('init', {
+			customerType: 'account',
+			tagId: 'c9120633-6601-4f3d-95bc-b53858d0458a'
+		});
+		_lt('send', 'pv', ['c9120633-6601-4f3d-95bc-b53858d0458a']);
+	</script>
+	<noscript>
+		<img height="1" width="1" style="display:none"
+			src="https://tr.line.me/tag.gif?c_t=lap&t_id=c9120633-6601-4f3d-95bc-b53858d0458a&e=pv&noscript=1" />
+	</noscript>
+	<!-- End LINE Tag Base Code -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>熱門電腦設備組裝</title>
+	<script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script>
+		// Using a Promise object
+		liff
+			.init({
+				liffId: "1656626380-X2wAEQ6W", // Use own liffId
+			})
+
+			.then((profile) => {
+				liff.getProfile();
+				const userId = profile.userId;
+			})
+	</script>
+	<script>
+		_lt('send', 'cv', {
+			type: 'enterweb'
+		}, ['c9120633-6601-4f3d-95bc-b53858d0458a']);
+	</script>
+
+</head>
+
+<body>
+
+	<div class="row" style="margin: 10px">
+
+		<div class="col-12" style="margin: 10px">
+
+			<label class="form-label">CPU</label>
+			<select class="custom-select custom-select-lg mb-3" id="cpu">
+				<optgroup label="Intel">
+					<option selected disabled>請選擇CPU</option>
+					{% for item in intel%}
+					<option value="{{item.name}}">{{item.name}} ${{item.price}}</option>
+					{% endfor %}
+				</optgroup>
+				<optgroup label="AMD">
+					{% for item in amd%}
+					<option value="{{item.name}}">{{item.name}} ${{item.price}}</option>
+					{% endfor %}
+				</optgroup>
+			</select>
+			<br />
+
+			<label class="form-label">主機板</label>
+			<select class="custom-select custom-select-lg mb-3" id="motherboard">
+				<optgroup label="華碩">
+					<option selected disabled>請選擇主機板</option>
+					{% for item in mb_1%}
+					<option value="{{item.name}}">{{item.name}} ${{item.price}}</option>
+					{% endfor %}
+				</optgroup>
+				<optgroup label="技嘉">
+					{% for item in mb_2%}
+					<option value="{{item.name}}">{{item.name}} ${{item.price}}</option>
+					{% endfor %}
+				</optgroup>
+				<optgroup label="微星">
+					{% for item in mb_3%}
+					<option value="{{item.name}}">{{item.name}} ${{item.price}}</option>
+					{% endfor %}
+				</optgroup>
+			</select>
+			<br />
+
+			<label class="form-label">固態硬碟SSD</label>
+			<select class="custom-select custom-select-lg mb-3" id="ssd">
+				<optgroup label="三星">
+					<option selected disabled>請選擇固態硬碟</option>
+					{% for item in ssd1%}
+					<option value="{{item.name}}">{{item.name}} ${{item.price}}</option>
+					{% endfor %}
+				</optgroup>
+				<optgroup label="WD">
+					{% for item in ssd2%}
+					<option value="{{item.name}}">{{item.name}} ${{item.price}}</option>
+					{% endfor %}
+				</optgroup>
+				<optgroup label="金士頓">
+					{% for item in ssd3%}
+					<option value="{{item.name}}">{{item.name}} ${{item.price}}</option>
+					{% endfor %}
+				</optgroup>
+			</select>
+			<br />
+
+			<label class="form-label">傳統硬碟HDD</label>
+			<select class="custom-select custom-select-lg mb-3" id="hdd">
+				<optgroup label="東芝Toshibe">
+					<option selected disabled>請選擇傳統硬碟</option>
+					{% for item in hdd1%}
+					<option value="{{item.name}}">{{item.name}} ${{item.price}}</option>
+					{% endfor %}
+				</optgroup>
+				<optgroup label="WD">
+					{% for item in hdd2%}
+					<option value="{{item.name}}">{{item.name}} ${{item.price}}</option>
+					{% endfor %}
+				</optgroup>
+				<optgroup label="希捷Seagate">
+					{% for item in hdd3%}
+					<option value="{{item.name}}">{{item.name}} ${{item.price}}</option>
+					{% endfor %}
+				</optgroup>
+			</select>
+			<br />
+
+			<label class="form-label">顯示卡</label>
+			<select class="custom-select custom-select-lg mb-3" id="gpu">
+				<optgroup label="MSI 微星">
+					<option selected disabled>請選擇顯示卡</option>
+					{% for item in display1%}
+					<option value="{{item.name}}">{{item.name}} ${{item.price}}</option>
+					{% endfor %}
+				</optgroup>
+				<optgroup label="華碩">
+					{% for item in display2%}
+					<option value="{{item.name}}">{{item.name}} ${{item.price}}</option>
+					{% endfor %}
+				</optgroup>
+				<optgroup label="技嘉">
+					{% for item in display3%}
+					<option value="{{item.name}}">{{item.name}} ${{item.price}}</option>
+					{% endfor %}
+				</optgroup>
+			</select>
+			<br />
+
+			<label class="form-label">記憶體</label>
+			<select class="custom-select custom-select-lg mb-3" id="memory">
+				<optgroup label="威剛ADATA">
+					<option selected disabled>請選擇記憶體</option>
+					{% for item in Memory1%}
+					<option value="{{item.name}}">{{item.name}} ${{item.price}}</option>
+					{% endfor %}
+				</optgroup>
+				<optgroup label="巨蟒ANACOMDA">
+					{% for item in Memory2%}
+					<option value="{{item.name}}">{{item.name}} ${{item.price}}</option>
+					{% endfor %}
+				</optgroup>
+				<optgroup label="宇瞻Apacer">
+					{% for item in Memory3%}
+					<option value="{{item.name}}">{{item.name}} ${{item.price}}</option>
+					{% endfor %}
+				</optgroup>
+
+			</select>
+			<br />
+
+			<label class="form-label">電源供應器</label>
+			<select class="custom-select custom-select-lg mb-3" id="power">
+				<optgroup label="CORSAIR 海盜船">
+					<option selected disabled>請選擇電源供應器</option>
+					{% for item in Power1%}
+					<option value="{{item.name}}">{{item.name}} ${{item.price}}</option>
+					{% endfor %}
+				</optgroup>
+				<optgroup label="Cooler Master">
+					{% for item in Power2%}
+					<option value="{{item.name}}">{{item.name}} ${{item.price}}</option>
+					{% endfor %}
+				</optgroup>
+				<optgroup label="ASUS 華碩">
+					{% for item in Power3%}
+					<option value="{{item.name}}">{{item.name}} ${{item.price}}</option>
+					{% endfor %}
+				</optgroup>
+
+			</select>
+			<br />
+
+			<label class="form-label">機殼</label>
+			<select class="custom-select custom-select-lg mb-3" id="case">
+				<optgroup label="ABKONCORE">
+					<option selected disabled>請選擇機殼</option>
+					{% for item in chassis1%}
+					<option value="{{item.name}}">{{item.name}} ${{item.price}}</option>
+					{% endfor %}
+				</optgroup>
+				<optgroup label="Antec安鈦克">
+					{% for item in chassis2%}
+					<option value="{{item.name}}">{{item.name}} ${{item.price}}</option>
+					{% endfor %}
+				</optgroup>
+				<optgroup label="ASUS華碩">
+					{% for item in chassis3%}
+					<option value="{{item.name}}">{{item.name}} ${{item.price}}</option>
+					{% endfor %}
+				</optgroup>
+
+			</select>
+			<br />
+			<script>
+				function push() {
+					var Pcpu = document.getElementById('cpu').value;
+					var Pmotherboard = document.getElementById('motherboard').value;
+					var Pssd = document.getElementById('ssd').value;
+					var Phdd = document.getElementById('hdd').value;
+					var Pgpu = document.getElementById('gpu').value;
+					var Pmemory = document.getElementById('memory').value;
+					var Ppower = document.getElementById('power').value;
+					var Pcase = document.getElementById('case').value;
+
+					var msg = "###";  //回傳訊息字串
+					msg = msg + Pcpu + "#";
+					msg = msg + Pmotherboard + "#";
+					msg = msg + Pssd + "#";
+					msg = msg + Phdd + "#";
+					msg = msg + Pgpu + "#";
+					msg = msg + Pmemory + "#";
+					msg = msg + Ppower + "#";
+					msg = msg + Pcase + "#";
+					console.log(Pcpu);
+					console.log(msg);
+
+					liff.sendMessages([  //推播訊息
+						{
+							type: 'text',
+							text: msg
+						}
+					])
+						.then(() => {
+							liff.closeWindow();  //關閉視窗
+						})
+				}
+			</script>
+
+
+			<button class="btn btn-success btn-block" onclick="push()" id="sure">確定</button>
+		</div>
+	</div>
+	</div>
+
+</body>
+
+</html>
