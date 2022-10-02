@@ -72,9 +72,6 @@ def callback(request):
                 likepower = Power.objects.get(id=7)
                 likechassis = chassis.objects.get(id=8)
 
-                print(events[0].source.user_id)
-                # print(users.objects.filter(linebotId=events[0].source.user_id).exists())
-                # users.objects.filter(linebotId=events[0].source.user_id).exists()
                 lineId = users.objects.filter(
                     linebotId=events[0].source.user_id).exists()  # 取得lineId
 
@@ -188,7 +185,7 @@ def callback(request):
                     reply_arr = []
                     # line_bot_api.reply_message(
                     #     event.reply_token, TextSendMessage(text='https://joblinebotapp.herokuapp.com/bind/%s/' % events[0].source.user_id))
-                    url = 'https://heroku-app.fly.dev/bind/%s/' % events[0].source.user_id
+                    url = 'https://gprojectapp.herokuapp.com/bind/%s/' % events[0].source.user_id
                     reply_arr.append(FlexSendMessage(
                         alt_text='搜尋結果',
                         contents={
@@ -242,7 +239,7 @@ def callback(request):
                                         "action": {
                                             "type": "uri",
                                             "label": "前往註冊",
-                                            "uri": "http://linecorp.com/"
+                                            "uri": "https://gprojectapp.herokuapp.com/signup/"
                                         },
                                         "style": "secondary",
                                         "margin": "md"
