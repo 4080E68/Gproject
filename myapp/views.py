@@ -185,7 +185,7 @@ def callback(request):
                     reply_arr = []
                     # line_bot_api.reply_message(
                     #     event.reply_token, TextSendMessage(text='https://joblinebotapp.herokuapp.com/bind/%s/' % events[0].source.user_id))
-                    url = 'https://gprojectapp.herokuapp.com/bind/%s/' % events[0].source.user_id
+                    url = 'https://gproject-app.fly.dev/bind/%s/' % events[0].source.user_id
                     reply_arr.append(FlexSendMessage(
                         alt_text='搜尋結果',
                         contents={
@@ -239,7 +239,7 @@ def callback(request):
                                         "action": {
                                             "type": "uri",
                                             "label": "前往註冊",
-                                            "uri": "https://gprojectapp.herokuapp.com/signup/"
+                                            "uri": "https://gproject-app.fly.dev/signup/"
                                         },
                                         "style": "secondary",
                                         "margin": "md"
@@ -289,9 +289,12 @@ def form(request):
     chassis3 = chassis.objects.filter(vendor='ASUS華碩')[:7]
     return render(request, 'form.html', locals())
 
+
 def configure(request, key, formid):
     data = db.objects.filter(lineID=key) & db.objects.filter(formID=formid)
     return render(request, 'configure.html', locals())
+
+
 def index(request):
     # request.session.clear()
 

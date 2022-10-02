@@ -1135,7 +1135,7 @@ def manageForm(event, mtext, lineid):  # 購物清單功能
                                 "action": {
                                     "type": "uri",
                                     "label": "購買連結",
-                                    "uri": "https://gprojectapp.herokuapp.com/configure/"+str(lineid)+'/'+str(formid),
+                                    "uri": "https://gproject-app.fly.dev/configure/"+str(lineid)+'/'+str(formid),
                                 },
                                 "style": "primary",
                                 "height": "sm",
