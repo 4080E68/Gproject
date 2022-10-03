@@ -388,10 +388,10 @@ def Chassis(request):
     chassis_all = chassis.objects.all()
     All_data = All.objects.all()
     All_data_count = All.objects.all().count()
-    chassis_Filter = displayFilter(queryset=chassis_all)
+    chassis_Filter = chassisFilter(queryset=chassis_all)
     All_Filter = ALLFilter(queryset=All_data)
     if request.method == "POST":
-        chassis_Filter = displayFilter(request.POST, queryset=chassis_all)
+        chassis_Filter = chassisFilter(request.POST, queryset=chassis_all)
         All_Filter = ALLFilter(request.POST, queryset=All_data)
     context = {
         'chassis_Filter': chassis_Filter,
@@ -655,10 +655,10 @@ def MB1(request):
     mb_all = MB.objects.all()
     All_data = All.objects.all()
     All_data_count = All.objects.all().count()
-    mb_Filter = displayFilter(queryset=mb_all)
+    mb_Filter = MBFilter(queryset=mb_all)
     All_Filter = ALLFilter(queryset=All_data)
     if request.method == "POST":
-        mb_Filter = displayFilter(request.POST, queryset=mb_all)
+        mb_Filter = MBFilter(request.POST, queryset=mb_all)
         All_Filter = ALLFilter(request.POST, queryset=All_data)
     context = {
         'mb_Filter': mb_Filter,
@@ -671,10 +671,10 @@ def Memory1(request):
     memory_all = Memory.objects.all()
     All_data = All.objects.all()
     All_data_count = All.objects.all().count()
-    memory_Filter = displayFilter(queryset=memory_all)
+    memory_Filter = MemoryFilter(queryset=memory_all)
     All_Filter = ALLFilter(queryset=All_data)
     if request.method == "POST":
-        memory_Filter = displayFilter(request.POST, queryset=memory_all)
+        memory_Filter = MemoryFilter(request.POST, queryset=memory_all)
         All_Filter = ALLFilter(request.POST, queryset=All_data)
     context = {
         'memory_Filter': memory_Filter,
@@ -687,10 +687,10 @@ def Power1(request):
     power_all = Power.objects.all()
     All_data = All.objects.all()
     All_data_count = All.objects.all().count()
-    power_Filter = displayFilter(queryset=power_all)
+    power_Filter = PowerFilter(queryset=power_all)
     All_Filter = ALLFilter(queryset=All_data)
     if request.method == "POST":
-        power_Filter = displayFilter(request.POST, queryset=power_all)
+        power_Filter = PowerFilter(request.POST, queryset=power_all)
         All_Filter = ALLFilter(request.POST, queryset=All_data)
     context = {
         'power_Filter': power_Filter,
@@ -778,10 +778,10 @@ def otchassis(request):
             commodity=CARTcommodity, url_list=CARTurl_list, pc_images=CARTpc_images, user=username)  # 新增資料
 
         save_cartdb.save()  # 儲存資料
-    chassis_Filter = displayFilter(queryset=chassis_all)
+    chassis_Filter = chassisFilter(queryset=chassis_all)
     All_Filter = ALLFilter(queryset=All_data)
     if request.method == "POST":
-        chassis_Filter = displayFilter(request.POST, queryset=chassis_all)
+        chassis_Filter = chassisFilter(request.POST, queryset=chassis_all)
         All_Filter = ALLFilter(request.POST, queryset=All_data)
     context = {
         'chassis_Filter': chassis_Filter,
@@ -912,10 +912,10 @@ def otMB(request):
             commodity=CARTcommodity, url_list=CARTurl_list, pc_images=CARTpc_images, user=username)  # 新增資料
 
         save_cartdb.save()  # 儲存資料
-    mb_Filter = displayFilter(queryset=mb_all)
+    mb_Filter = MBFilter(queryset=mb_all)
     All_Filter = ALLFilter(queryset=All_data)
     if request.method == "POST":
-        mb_Filter = displayFilter(request.POST, queryset=mb_all)
+        mb_Filter = MBFilter(request.POST, queryset=mb_all)
         All_Filter = ALLFilter(request.POST, queryset=All_data)
     context = {
         'mb_Filter': mb_Filter,
@@ -956,10 +956,10 @@ def otPower(request):
             commodity=CARTcommodity, url_list=CARTurl_list, pc_images=CARTpc_images, user=username)  # 新增資料
 
         save_cartdb.save()  # 儲存資料
-    power_Filter = displayFilter(queryset=power_all)
+    power_Filter = PowerFilter(queryset=power_all)
     All_Filter = ALLFilter(queryset=All_data)
     if request.method == "POST":
-        power_Filter = displayFilter(request.POST, queryset=power_all)
+        power_Filter = PowerFilter(request.POST, queryset=power_all)
         All_Filter = ALLFilter(request.POST, queryset=All_data)
     context = {
         'power_Filter': power_Filter,
@@ -1044,10 +1044,10 @@ def otMemory(request):
             commodity=CARTcommodity, url_list=CARTurl_list, pc_images=CARTpc_images, user=username)  # 新增資料
 
         save_cartdb.save()  # 儲存資料
-    memory_Filter = displayFilter(queryset=memory_all)
+    memory_Filter = MemoryFilter(queryset=memory_all)
     All_Filter = ALLFilter(queryset=All_data)
     if request.method == "POST":
-        memory_Filter = displayFilter(request.POST, queryset=memory_all)
+        memory_Filter = MemoryFilter(request.POST, queryset=memory_all)
         All_Filter = ALLFilter(request.POST, queryset=All_data)
     context = {
         'memory_Filter': memory_Filter,

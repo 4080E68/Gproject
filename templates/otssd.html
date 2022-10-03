@@ -50,9 +50,14 @@
 	</div>
 	<form class="gt" method='POST'>
 		{% csrf_token %}
-		廠商：{{ ssd_Filter.form.vendor }}
-		名稱：{{ ssd_Filter.form.name }}
-		價格：{{ ssd_Filter.form.price }}
+		廠商：{{ ssd_Filter.form.vendor }} |
+		名稱：{{ ssd_Filter.form.name }} |
+		價格：{{ ssd_Filter.form.price }} |
+		容量(TB)：{{ ssd_Filter.form.capacity_TB }}
+		<br>
+		尺寸：{{ ssd_Filter.form.size }} |
+		讀取速度：{{ ssd_Filter.form.read_speed_mbs }} |
+		寫入速度：{{ ssd_Filter.form.write_speed_mbs }}
 		<input type="submit" class="btn btn-primary" value="查詢">
 	</form>
 	<div class="kt">
@@ -71,10 +76,10 @@
 			<th width="5%" scope="col">
 				<font size="5">價格</font>
 			</th>
-			<th width="15%" scope="col">
+			<th width="10%" scope="col">
 				<font size="5">詳細資訊</font>
 			</th>
-			<th width="2%" scope="col">
+			<th width="7%" scope="col">
 				<font size="5">容量(TB)</font>
 			</th>
 			<th width="5%" scope="col">
@@ -86,13 +91,13 @@
 			<th width="8%" scope="col">
 				<font size="5">寫入速度</font>
 			</th>
-			<th width="10%" scope="col">
+			<th width="7%" scope="col">
 				<font size="5">購買連結</font>
 			</th>
-			<th width="20%" scope="col">
+			<th width="7%" scope="col">
 				<font size="5">購物清單</font>
 			</th>
-			<h1>共有{{ssd_Filter.qs|length}}筆資料</h1>
+			<!-- <h1>共有{{ssd_Filter.qs|length}}筆資料</h1> -->
 			{% for aaa in ssd_Filter.qs %}
 			<tr align="center">
 				<td>{{aaa.vendor}}</td>
@@ -175,3 +180,8 @@
 </body>
 
 </html>
+<style>
+	th {
+		top: 260px;
+	}
+</style>
