@@ -585,16 +585,17 @@ def bind(request, key=None):
             messages = "綁定失敗請確認帳號或密碼"
         else:
             lineID = key
-            print(lineID)
+            user = users.objects.filter(
+                account=account, password=password)
             result = users.objects.filter(linebotId=lineID).exists()
-            if result == False:
-                # 沒有被綁定過
+            if result == False and user[0].linebotId == '':
+                # lineId不存在且帳號的lineID沒有任何資料
                 users.objects.filter(account=account).update(
                     linebotId=lineID
                 )
                 messages = "綁定成功!!"
             else:
-                messages = "該帳號已被綁定!!"
+                messages = "此帳號已被綁定!!"
     return render(request, 'bind.html', locals())
 
 
