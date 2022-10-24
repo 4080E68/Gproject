@@ -30,7 +30,6 @@
         div.form-group.row {
             display: flex;
 
-
         }
 
         div.col-sm-5 {}
@@ -41,7 +40,7 @@
     </style>
 
     <div class="container">
-        <form style="padding: 1rem; font-size: 1.5rem; " method="post">
+        <form style="padding: 1rem; font-size: 1.5rem;" class="w-100" method="post">
             {% csrf_token %}
             <h1>登入</h1>
             <hr class="my-3">
@@ -58,10 +57,10 @@
                 </div>
 
             </div>
-                <div class="col-sm-10">
-                    <button type="submit" class="btn btn-primary w-100">綁定</button>
+            <div class="col">
+                <button type="submit" class="btn btn-primary w-100 p-2">綁定</button>
 
-                </div>
+            </div>
 
         </form>
     </div>

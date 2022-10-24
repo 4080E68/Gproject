@@ -62,7 +62,7 @@ def callback(request):
 # ==========================推薦功能============================================
 
             if event.message.text == "@推薦商品":  # 推薦商品功能
-                likezero = cpu.objects.get(id=9)
+                likezero = ssd.objects.get(id=3)
                 likecpu = cpu.objects.get(id=2)
                 likemb = MB.objects.get(id=2)
                 likessd = ssd.objects.get(id=3)
@@ -579,21 +579,22 @@ def bind(request, key=None):
         account = request.POST['account']
         password = request.POST['password']
 
-        print(account)
-        print(password)
-
         user = users.objects.filter(
             account=account, password=password).exists()  # 比對帳號密碼
         if user == False:
             messages = "綁定失敗請確認帳號或密碼"
         else:
-            messages = "綁定成功!!"
-            request.session['id'] = key
-            print(request.session['id'])
-            users.objects.filter(account=account).update(
-                linebotId=request.session['id']
-            )
-
+            lineID = key
+            print(lineID)
+            result = users.objects.filter(linebotId=lineID).exists()
+            if result == False:
+                # 沒有被綁定過
+                users.objects.filter(account=account).update(
+                    linebotId=lineID
+                )
+                messages = "綁定成功!!"
+            else:
+                messages = "該帳號已被綁定!!"
     return render(request, 'bind.html', locals())
 
 
