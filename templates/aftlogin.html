@@ -7,27 +7,40 @@
     <title>電腦配件客製化推薦系統</title>
     <link rel="stylesheet" href="{% static 'index-1.css' %}">
 </head>
+<style>
+    a {
+        width: max-content;
+    }
+
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+    }
+</style>
 
 <body>
 
     <div class="lli">
-        <ul>
-            <li><a class="active">電腦配件客製化推薦系統</a></li>
-            <li><a class="actives" href="/aftlogin">首頁</a></li>
-            <li><a href="/otcpu">CPU</a></li>
-            <li><a href="/otMB">主機板</a></li>
-            <li><a href="/otssd">SSD</a></li>
-            <li><a href="/othdd">HDD</a></li>
-            <li><a href="/otdisplay">顯示卡</a></li>
-            <li><a href="/otMemory">記憶體</a></li>
-            <li><a href="/otPower">電源供應器</a></li>
-            <li><a href="/otchassis">機殼</a></li>
-            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
-            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
-            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
-            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
-            <li><a href="/">登出</a></li>
-            <li><a href="/cart">購物清單</a></li>
+        <ul class="navbar">
+            <div class="product">
+                <li><a class="active">電腦配件客製化推薦系統</a></li>
+                <li><a class="actives" href="/aftlogin">首頁</a></li>
+                <li><a href="/otcpu">CPU</a></li>
+                <li><a href="/otMB">主機板</a></li>
+                <li><a href="/otssd">SSD</a></li>
+                <li><a href="/othdd">HDD</a></li>
+                <li><a href="/otdisplay">顯示卡</a></li>
+                <li><a href="/otMemory">記憶體</a></li>
+                <li><a href="/otPower">電源供應器</a></li>
+                <li><a href="/otchassis">機殼</a></li>
+            </div>
+            <div class="logout">
+                <li><a href="/">登出</a></li>
+                <li><a href="/cart">購物清單</a></li>
+            </div>
+
+
+
         </ul>
     </div>
 
