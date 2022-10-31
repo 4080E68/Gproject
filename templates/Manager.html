@@ -35,7 +35,7 @@
 <body>
     <nav class="navbar navbar-dark bg-dark fixed-top">
         <div class="container-fluid" style="padding: 0rem 3rem;">
-            <a class="navbar-brand" style="font-size: 2rem;">電腦配件推薦系統</a>
+            <a class="navbar-brand" style="font-size: 2rem;">電腦配件客製化推薦系統</a>
             <div style="width: 45%; display:flex; justify-content: center;">
                 <form action="" method="post" style="display: inline; margin-right: 1rem;" id="form">
                     {% csrf_token %}
@@ -62,8 +62,9 @@
                         name="search">
                     <button class="btn btn-outline-success" type="submit" style="margin-right: 0.5rem;">Search</button>
                 </form>
-                <a href="/adminLogout" ><button class="btn btn-outline-danger" type="button" style="margin-right: 0.5rem;">登出</button></a>
-                <a href="/" ><button class="btn btn-outline-light" type="button">回首頁</button></a>
+                <a href="/adminLogout"><button class="btn btn-outline-danger" type="button"
+                        style="margin-right: 0.5rem;">登出</button></a>
+                <a href="/"><button class="btn btn-outline-light" type="button">回首頁</button></a>
             </div>
 
         </div>

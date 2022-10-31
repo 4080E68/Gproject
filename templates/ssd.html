@@ -4,13 +4,13 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>電腦配件推薦系統</title>
+	<title>電腦配件客製化推薦系統</title>
 	<link rel="stylesheet" href="{% static 'index-2.css' %}">
 </head>
 
 <body>
 	<ul>
-		<li><a class="active">電腦配件推薦系統</a></li>
+		<li><a class="active">電腦配件客製化推薦系統</a></li>
 		<li><a href="/">首頁</a></li>
 		<li><a href="/cpu">CPU</a></li>
 		<li><a href="/MB">主機板</a></li>
@@ -29,7 +29,7 @@
 	</ul>
 	<center>
 		<div class="h1">
-			<a href="/">電腦配件推薦系統</a>
+			<a href="/">電腦配件客製化推薦系統</a>
 		</div>
 		<br />
 		<form class="wat" method='POST'>
@@ -52,7 +52,7 @@
 		廠商：{{ ssd_Filter.form.vendor }} |
 		名稱：{{ ssd_Filter.form.name }} |
 		價格：{{ ssd_Filter.form.price }} |
-		容量(TB)：{{ ssd_Filter.form.capacity_TB }} 
+		容量(TB)：{{ ssd_Filter.form.capacity_TB }}
 		<br>
 		尺寸：{{ ssd_Filter.form.size }} |
 		讀取速度：{{ ssd_Filter.form.read_speed_mbs }} |
@@ -62,7 +62,7 @@
 	<div class="kt" style="margin-top: 260px;">
 		{%if ssd_Filter.qs|length >= 1 and All_Filter.qs|length == All_data_count %}
 		<!---67=資料庫全部的資料-->
-		<table width="100%" height="508" border="1" >
+		<table width="100%" height="508" border="1">
 			<th width="5%" height="50" scope="col">
 				<font size="5">廠商</font>
 			</th>
@@ -111,7 +111,7 @@
 			{% elif ssd_Filter.qs|length == 0 %}
 			<h1>查詢無結果</h1>
 			{% elif All_Filter.qs|length >= 1 and ssd_Filter.qs|length == 129%}
-			<table width="100%" height="508" border="1" >
+			<table width="100%" height="508" border="1">
 				<th width="5%" height="50" scope="col">
 					<font size="5">廠商</font>
 				</th>
@@ -153,7 +153,7 @@
 
 </html>
 <style>
-	th{
+	th {
 		top: 260px;
 	}
 </style>

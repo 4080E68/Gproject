@@ -4,13 +4,13 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>電腦配件推薦系統</title>
+	<title>電腦配件客製化推薦系統</title>
 	<link rel="stylesheet" href="{% static 'index-2.css' %}">
 </head>
 
 <body>
 	<ul>
-		<li><a class="active">電腦配件推薦系統</a></li>
+		<li><a class="active">電腦配件客製化推薦系統</a></li>
 		<li><a href="/">首頁</a></li>
 		<li><a class="actives" href="/cpu">CPU</a></li>
 		<li><a href="/MB">主機板</a></li>
@@ -29,7 +29,7 @@
 	</ul>
 	<center>
 		<div class="h1">
-			<a href="/">電腦配件推薦系統</a>
+			<a href="/">電腦配件客製化推薦系統</a>
 		</div>
 		<br />
 		<form class="wat" method='POST'>
@@ -55,7 +55,7 @@
 		名稱：{{ cpu_Filter.form.name }} |
 		價格：{{ cpu_Filter.form.price }} |
 		核心數：{{ cpu_Filter.form.chip }} |
-		執行緒：{{ cpu_Filter.form.thread }} 
+		執行緒：{{ cpu_Filter.form.thread }}
 		<input type="submit" class="btn btn-primary" value="查詢" /><br />
 	</form>
 	<div class="kt">
